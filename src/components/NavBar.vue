@@ -16,7 +16,8 @@ const nevegacion = ref([
     { id: 1, nombre: "Educación", enlace: "#educacion" },
     { id: 2, nombre: "Experiencia", enlace: "#experiencia" },
     { id: 3, nombre: "Proyectos", enlace: "#proyectos" },
-    { id: 4, nombre: "Habilidades", enlace: "#habilidades" }
+    { id: 4, nombre: "Habilidades", enlace: "#habilidades" },
+    { id: 4, nombre: "Intereses", enlace: "#intereses" }
 ]);
 </script>
 

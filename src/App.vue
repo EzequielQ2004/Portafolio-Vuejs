@@ -6,10 +6,11 @@ import EducacionComponente from './components/EducacionComponente.vue';
 import ExperienciaComponentes from './components/ExperienciaComponentes.vue';
 import ProyectosComponente from './components/ProyectosComponente.vue';
 import HabilidadesComponente from './components/HabilidadesComponente.vue';
+import InteresesComponente from './components/InteresesComponente.vue';
 </script>
 
 <template>
-  <header>
+  <header id="top">
     <!--Barra de Navegacion-->
     <NavBar />
     <!--Componente Datos Personales-->
@@ -29,10 +30,22 @@ import HabilidadesComponente from './components/HabilidadesComponente.vue';
     <section id="habilidades"><h2>Habilidades</h2>
     <HabilidadesComponente />
     </section>
-    <section id="intereses"><h2>intereses</h2></section>
+    <section id="intereses"><h2>intereses</h2>
+    <InteresesComponente />
+    </section>
   </main>
+  <footer>
+        <a href="#top">Inicio</a>
+        <p>© 2024 Ezequiel Quiroz - Portafolio web - tutorial UTN FRSR</p>
+    </footer>
 </template>
 
 <style scoped>
-
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.3rem;
+}
 </style>
