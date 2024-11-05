@@ -18,7 +18,7 @@ import InteresesComponente from './components/InteresesComponente.vue';
       <Educacion />
     </section>
     <section id="experiencia"><h2>Experiencia</h2>
-      <ExperienciaComponentes />
+      <ExperienciaComponente />
     </section>
     <section id="proyectos"><h2>Proyectos</h2>
       <ProyectosComponente />
