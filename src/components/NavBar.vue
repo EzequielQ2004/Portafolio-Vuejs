@@ -3,7 +3,7 @@
     <div class="navbar-menu">
       <ul class="nav-list">
         <li v-for="nav in nevegacion" :key="nav.id" class="nav-item">
-          <a :href="nav.enlace">{{ nav.nombre }}</a>
+          <a @click.prevent="smoothScroll(nav.enlace)">{{ nav.nombre }}</a>
         </li>
       </ul>
     </div>
@@ -12,13 +12,23 @@
 
 <script setup>
 import { ref } from 'vue';
+
+// Lista de elementos de navegación
 const nevegacion = ref([
     { id: 1, nombre: "Educación", enlace: "#educacion" },
     { id: 2, nombre: "Experiencia", enlace: "#experiencia" },
     { id: 3, nombre: "Proyectos", enlace: "#proyectos" },
     { id: 4, nombre: "Habilidades", enlace: "#habilidades" },
-    { id: 4, nombre: "Intereses", enlace: "#intereses" }
+    { id: 5, nombre: "Intereses", enlace: "#intereses" }
 ]);
+
+// Función para el desplazamiento suave
+function smoothScroll(target) {
+  const element = document.querySelector(target);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}
 </script>
 
 <style scoped>

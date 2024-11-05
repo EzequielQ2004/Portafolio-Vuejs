@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from 'vue';
 import FondoLava from './FondoLava.vue';
-//Este es un arreglo con ref para que se pueda reactivar el cambio de los intereses
+
 const intereses = ref([
-    'Desarrollo de Software de Código Abierto: Contribuyo a proyectos en GitHub, colaborando con otros desarrolladores para mejorar herramientas y librerías populares.',
-    'Deportes al Aire Libre: Disfruto del senderismo y el ciclismo de montaña, actividades que practico regularmente para mantener un equilibrio entre el trabajo y la vida personal.',
-    'Tecnología de Innovación: Me apasiona explorar nuevas tendencias tecnológicas como la inteligencia artificial y el desarrollo de aplicaciones móviles.',
-    'Fotografía: Practico la fotografía como un hobby, lo que me ayuda a mantener una perspectiva creativa tanto en mi vida profesional como personal.'
+    '💻 Desarrollo de Software Abierto: Contribuyo activamente en proyectos de GitHub, colaborando con desarrolladores para mejorar herramientas y librerías populares.',
+    '🌄 Aventura al Aire Libre: Me encanta practicar senderismo y ciclismo de montaña, disfrutando de la naturaleza y manteniendo un equilibrio saludable entre el trabajo y la vida personal.',
+    '🚀 Innovación Tecnológica: Apasionado por explorar nuevas tendencias como inteligencia artificial y desarrollo de aplicaciones móviles que transforman el mundo.',
+    '📸 Fotografía Creativa: La fotografía es mi hobby favorito, lo que me permite mantener una perspectiva fresca y creativa en mi vida profesional y personal.'
 ]);
 </script>
 
@@ -19,26 +19,6 @@ const intereses = ref([
             </li>
         </ul>
     </div>
-    <!-- <div class="intereses-contenedor">
-        <ul class="contenedor-lista">
-            <li class="item">
-                Desarrollo de Software de Código Abierto: Contribuyo a proyectos en GitHub, colaborando con otros
-                desarrolladores para mejorar herramientas y librerías populares.
-            </li>
-            <li class="item">
-                Deportes al Aire Libre: Disfruto del senderismo y el ciclismo de montaña, actividades que practico
-                regularmente para mantener un equilibrio entre el trabajo y la vida personal.
-            </li>
-            <li class="item">
-                Tecnología de Innovación: Me apasiona explorar nuevas tendencias tecnológicas como la inteligencia
-                artificial y el desarrollo de aplicaciones móviles.
-            </li>
-            <li class="item">
-                Fotografía: Practico la fotografía como un hobby, lo que me ayuda a mantener una perspectiva creativa
-                tanto en mi vida profesional como personal.
-            </li>
-        </ul>
-    </div> -->
 </template>
 
 <style scoped>
@@ -47,19 +27,25 @@ const intereses = ref([
     position: relative;
     margin: 0 auto;
     max-width: 85%;
-    padding: 1rem;
+    padding: 2rem; /* Aumenté el padding para más espacio */
 }
 
 .contenedor-lista {
     list-style-type: none;
     padding: 1rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0;
     color: var(--vt-c-white-soft);
-    font-size: 1.4rem;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    font-size: 1.5rem; /* Aumenté el tamaño de la fuente */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .item {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem; /* Mayor espacio entre items */
+    transition: transform 0.3s ease, color 0.3s ease; /* Efecto suave en hover */
+}
+
+.item:hover {
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño en hover */
+    color: #ff5733; /* Cambiar color en hover */
 }
 </style>
