@@ -14,7 +14,7 @@ import InteresesComponente from './components/InteresesComponente.vue';
     <DatosPersonales />
   </header>
   <main>
-    <section id="educacion"><h2>Educación - Cursos</h2>
+    <section id="educacion"><h2>Educación</h2>
       <Educacion />
     </section>
     <section id="experiencia"><h2>Experiencia</h2>

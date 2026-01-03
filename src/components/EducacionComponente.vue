@@ -3,18 +3,12 @@ import { ref } from 'vue';
 
 const fechaColor = ref([
   { color: '#41516c' },
-  { color: '#FBCA3E' },
-  { color: '#E24A68' },
-  { color: '#1B5F8C' },
-  { color: '#4CADAD' }
+  { color: '#FBCA3E' }
 ]);
 
 const educacion = ref([
-  { fecha: '2024', title: 'Técnicatura Universitaria en Programación', descripcion: 'Capacitación en desarrollo y análisis de sistemas informáticos, programación avanzada y operación de computadoras.', enlace: 'https://www.utn.edu.ar/' },
-  { fecha: '2023', title: 'Desarrollador Full Stack', descripcion: 'Experiencia en XYZ Tech, donde desarrollé aplicaciones web usando Node.js, React y MongoDB.', enlace: 'https://www.xyztech.com' },
-  { fecha: '2022', title: 'Internship en Desarrollo Web', descripcion: 'Pasantía en ABC Solutions, contribuyendo a la creación de interfaces y optimización de sitios web.', enlace: 'https://www.abcsolutions.com' },
-  { fecha: '2021', title: 'Proyecto Personal - Gestión de Tareas', descripcion: 'Creación de una aplicación de tareas con HTML, CSS y JavaScript, incluyendo listas y recordatorios.', enlace: '#' },
-  { fecha: '2020', title: 'Curso de Introducción a la Programación', descripcion: 'Curso online sobre fundamentos de programación en Python y Java.', enlace: '#' }
+  { fecha: '2024 - 2025', title: 'Técnicatura Universitaria en Programación', descripcion: 'Capacitación en desarrollo y análisis de sistemas informáticos, programación avanzada y operación de computadoras.', enlace: 'https://www.utn.edu.ar/' },
+  { fecha: '2018 - 2023', title: 'Técnicatura Agropecuaria', descripcion: 'Estudios en escuela tecnica agropecuaria especializada en frutales y hortalizas, Antonio Di Benedetto 4-043', enlace: 'https://dti.mendoza.edu.ar/gem/ingreso/publico/escuela/1031/3' }
 ]);
 </script>
 
