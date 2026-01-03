@@ -1,8 +1,8 @@
 <script setup>
 import linkedin from '/src/assets/linkedin_icon.svg';
-import instagram from '/src/assets/instagram_icon.svg';
 import github from '/src/assets/github_icon.svg';
 import cv from '/src/assets/cv_resume_icon.svg';
+import fotoPerfil from '/src/assets/foto_perfil.jpg';
 
 const title = 'Ezequiel Quiroz';
 const subtitle = 'Desarrollador Web & Técnico en Programación';
@@ -10,10 +10,9 @@ const descripcion = 'Técnico Universitario en Programación - UTN';
 const residencia = '📍 San Rafael, Mendoza, Argentina';
 const presentacion = '¡Hola! Bienvenido a mi portafolio. Soy un apasionado del desarrollo web y móvil, siempre en busca de mejorar mis habilidades y colaborar en proyectos innovadores.';
 const redesSociales = [
-  { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/ezequiel-quiroz-50b298300/' },
-  { id: 2, name: 'Instagram', src: instagram, url: 'https://www.instagram.com/ezequiel.qroz/' },
-  { id: 3, name: 'GitHub', src: github, url: 'https://github.com/ezequielquiroz' },
-  { id: 4, name: 'Currículum', src: cv, url: '/assets/cv.pdf' },
+  { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/ezequielquiroz/' },
+  { id: 2, name: 'GitHub', src: github, url: 'https://github.com/EzequielQ2004' },
+  { id: 3, name: 'Currículum', src: cv, url: '/src/assets/cv.pdf' },
 ];
 const telefono = '+54 2604-005223';
 </script>
@@ -21,6 +20,15 @@ const telefono = '+54 2604-005223';
 <template>
 <section class="datos-personales">
   <div class="card">
+
+    <div class="foto-container">
+      <img 
+        :src="fotoPerfil" 
+        alt="Foto de Ezequiel Quiroz" 
+        class="foto-perfil"
+      />
+    </div>
+    
     <h1 class="title">{{ title }}</h1>
     <h2 class="subtitle">{{ subtitle }}</h2>
     <p class="descripcion">{{ descripcion }}</p>
@@ -57,6 +65,28 @@ const telefono = '+54 2604-005223';
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   text-align: center;
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.foto-container {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.foto-perfil {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #4a5f7a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .title {
