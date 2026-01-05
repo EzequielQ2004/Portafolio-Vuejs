@@ -71,7 +71,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue';
 
 // Lista de elementos de navegación
 const navegacion = ref([
-  { id: 1, nombre: "Inicio", enlace: "#top", icon: "🏠" },
+  { id: 1, nombre: "Inicio", enlace: "#inicio", icon: "🏠" },
   { id: 2, nombre: "Educación", enlace: "#educacion", icon: "🎓" },
   { id: 3, nombre: "Experiencia", enlace: "#experiencia", icon: "💼" },
   { id: 4, nombre: "Proyectos", enlace: "#proyectos", icon: "🚀" },
