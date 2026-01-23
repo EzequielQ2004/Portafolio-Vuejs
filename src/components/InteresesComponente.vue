@@ -97,13 +97,13 @@ const interesesPrincipales = ref([
             </div>
 
             <!-- Intereses Principales -->
-            <div class="principales-section">
-                <div class="principales-header">
+            <!-- <div class="principales-section"> -->
+                <!-- <div class="principales-header">
                     <h3 class="principales-titulo">Lo que más valoro</h3>
                     <p class="principales-subtitulo">Principios que guían mi día a día</p>
-                </div>
+                </div> -->
                 
-                <div class="principales-grid">
+                <!-- <div class="principales-grid">
                     <div 
                         v-for="(principal, index) in interesesPrincipales" 
                         :key="index"
@@ -115,11 +115,11 @@ const interesesPrincipales = ref([
                         </div>
                         <span class="principal-text">{{ principal }}</span>
                     </div>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
 
             <!-- Beneficios -->
-            <div class="beneficios-section">
+            <!-- <div class="beneficios-section">
                 <h3 class="beneficios-titulo">¿Cómo estos intereses mejoran mi trabajo?</h3>
                 <div class="beneficios-grid">
                     <div class="beneficio-card">
@@ -143,7 +143,7 @@ const interesesPrincipales = ref([
                         <p>Buscar balance entre trabajo y vida personal me ayuda a evitar el burnout y mantener la pasión por programar.</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Quote -->
             <div class="quote-section">

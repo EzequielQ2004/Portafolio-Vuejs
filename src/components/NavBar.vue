@@ -61,7 +61,7 @@
       </div>
 
       <!-- Indicador de sección activa -->
-      <div class="active-indicator" :style="activeIndicatorStyle"></div>
+      <!-- <div class="active-indicator" :style="activeIndicatorStyle"></div> -->
     </div>
   </nav>
 </template>

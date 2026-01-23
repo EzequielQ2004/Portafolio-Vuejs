@@ -151,7 +151,7 @@ const animarElemento = (elemento) => {
       </div>
 
       <!-- Sección de Habilidades Desarrolladas -->
-      <div class="habilidades-section">
+      <!-- <div class="habilidades-section">
         <h3 class="habilidades-titulo">Habilidades Desarrolladas</h3>
         <div class="habilidades-grid">
           <div 
@@ -168,7 +168,7 @@ const animarElemento = (elemento) => {
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Certificaciones -->
       <!-- <div class="certificaciones-section" v-if="certificaciones.length > 0">

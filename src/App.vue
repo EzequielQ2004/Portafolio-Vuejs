@@ -7,6 +7,7 @@ import ExperienciaComponente from './components/ExperienciaComponente.vue';
 import ProyectosComponente from './components/ProyectosComponente.vue';
 import HabilidadesComponente from './components/HabilidadesComponente.vue';
 import InteresesComponente from './components/InteresesComponente.vue';
+import Chatbot from './components/Chatbot.vue';
 // import ContactoComponente from './components/ContactoComponente.vue';
 
 // Estado para mostrar/ocultar botón de volver arriba
@@ -328,6 +329,7 @@ onUnmounted(() => {
       <div class="progress-fill"></div>
     </div>
   </div>
+  
 </template>
 
 <style scoped>

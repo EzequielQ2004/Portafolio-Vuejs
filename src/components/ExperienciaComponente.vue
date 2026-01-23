@@ -105,14 +105,14 @@ const habilidadesBlandas = ref([
                 </li>
             </ul>
             
-            <div class="habilidades-section">
+            <!-- <div class="habilidades-section">
                 <h4 class="subtitulo">Habilidades Personales</h4>
                 <div class="habilidades-container">
                     <span class="habilidad-item" v-for="(habilidad, index) in habilidadesBlandas" :key="index">
                         ✅ {{ habilidad }}
                     </span>
                 </div>
-            </div>
+            </div> -->
             
             <div class="cta-section">
                 <p class="cta-text">¿Interesado en colaborar o conocerme mejor?</p>
