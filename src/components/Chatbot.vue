@@ -440,40 +440,6 @@ function autoResize(event) {
 </template>
 
 <style scoped>
-/* Botón flotante */
-.chat-button {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  border: none;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.8rem;
-  cursor: pointer;
-  z-index: 9998;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
-}
-
-.chat-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 25px rgba(79, 70, 229, 0.6);
-}
-
-.chat-button-active {
-  transform: rotate(90deg);
-}
-
-.chat-button-active:hover {
-  transform: rotate(90deg) scale(1.1);
-}
-
 /* Ventana del chat */
 .chat-window {
   position: fixed;
@@ -481,6 +447,8 @@ function autoResize(event) {
   right: 2rem;
   width: 380px;
   height: 600px;
+  max-height: calc(100vh - 120px); /* Evita que se corte en pantallas pequeñas */
+  top: auto; /* Asegurar que está basado en bottom */
   background: linear-gradient(145deg, #1e293b, #0f172a);
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -501,6 +469,40 @@ function autoResize(event) {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* Botón flotante */
+.chat-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9998; /* Menor que chat-window */
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+}
+
+.chat-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(79, 70, 229, 0.6);
+}
+
+.chat-button-active {
+  transform: rotate(90deg);
+}
+
+.chat-button-active:hover {
+  transform: rotate(90deg) scale(1.1);
 }
 
 /* Header del chat */
@@ -778,36 +780,35 @@ function autoResize(event) {
   text-align: center;
 }
 
-/* Responsive */
+/* Para notebooks/pantallas medianas */
+@media (max-width: 1366px) {
+  .chat-window {
+    width: 350px;
+    height: 550px;
+    bottom: 5rem;
+    right: 1.5rem;
+    max-height: calc(100vh - 100px);
+  }
+}
+
+/* Para pantallas pequeñas */
 @media (max-width: 768px) {
   .chat-window {
     width: calc(100vw - 3rem);
-    height: 500px;
+    height: calc(100vh - 150px);
+    max-height: 500px;
     right: 1.5rem;
     bottom: 5rem;
-  }
-  
-  .chat-button {
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 55px;
-    height: 55px;
+    top: auto;
   }
 }
 
 @media (max-width: 480px) {
   .chat-window {
     width: calc(100vw - 2rem);
+    height: calc(100vh - 120px);
     right: 1rem;
-  }
-  
-  .quick-actions {
-    justify-content: center;
-  }
-  
-  .quick-action {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
+    bottom: 4.5rem;
   }
 }
 </style>

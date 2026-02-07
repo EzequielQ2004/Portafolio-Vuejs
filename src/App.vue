@@ -62,6 +62,8 @@ onUnmounted(() => {
   <div class="app-container">
     <!-- Navegación -->
     <NavBar />
+
+    <Chatbot />
     
     <!-- Header Principal -->
     <header class="main-header" id="inicio">
