@@ -345,7 +345,8 @@ onUnmounted(() => {
 
 /* Header Principal */
 .main-header {
-  padding-top: 80px; /* Para compensar el navbar fijo */
+  padding: 80px 2rem 5rem; /* Compensar navbar + padding */
+  background: #0f172a; /* Mismo fondo que app-container */
 }
 
 /* Secciones */
@@ -355,6 +356,7 @@ onUnmounted(() => {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  background: #0f172a; /* Fondo unificado */
 }
 
 .content-section.visible {
@@ -409,15 +411,6 @@ onUnmounted(() => {
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
-}
-
-/* Colores de fondo alternados para secciones */
-.content-section:nth-child(odd) {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-}
-
-.content-section:nth-child(even) {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
 }
 
 /* Placeholder de Contacto */
