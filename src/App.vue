@@ -351,7 +351,7 @@ onUnmounted(() => {
 
 /* Secciones */
 .content-section {
-  padding: 5rem 2rem;
+  /* padding: 5rem 2rem; */
   position: relative;
   opacity: 0;
   transform: translateY(20px);
@@ -362,6 +362,12 @@ onUnmounted(() => {
 .content-section.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+section {
+    padding: none;
+    border-bottom: none;
+    margin: none;
 }
 
 .section-container {
