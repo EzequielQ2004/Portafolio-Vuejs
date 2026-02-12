@@ -3,6 +3,7 @@ import linkedin from '/src/assets/linkedin_icon.svg';
 import github from '/src/assets/github_icon.svg';
 import cv from '/src/assets/cv_resume_icon.svg';
 import fotoPerfil from '/src/assets/foto_perfil.jpg';
+import cvPdf from '/src/assets/cv.pdf';
 
 const title = 'Ezequiel Quiroz';
 const subtitle = 'Desarrollador Web & Técnico en Programación';
@@ -12,7 +13,7 @@ const presentacion = '¡Hola! Bienvenido a mi portafolio. Soy un apasionado del 
 const redesSociales = [
   { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/ezequielquiroz/' },
   { id: 2, name: 'GitHub', src: github, url: 'https://github.com/EzequielQ2004' },
-  { id: 3, name: 'Currículum', src: cv, url: '/src/assets/cv.pdf' },
+  { id: 3, name: 'Currículum', src: cv, url: cvPdf, download: true, filename: 'CV-Ezequiel-Quiroz.pdf' },
 ];
 const telefono = '+54 2604-005223';
 </script>
@@ -40,7 +41,12 @@ const telefono = '+54 2604-005223';
 
           <ul class="redes-sociales">
             <li v-for="red in redesSociales" :key="red.id">
-              <a :href="red.url" target="_blank" rel="noopener noreferrer">
+              <a
+                :href="red.url"
+                :target="red.download ? null : '_blank'"
+                :rel="red.download ? null : 'noopener noreferrer'"
+                :download="red.download ? red.filename : null"
+              >
                 <img class="icon-redsocial" :src="red.src" width="30" :alt="red.name" :title="red.name">
               </a>
             </li>
