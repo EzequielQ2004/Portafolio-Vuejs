@@ -4,6 +4,7 @@ import { ref, computed } from 'vue';
 import iconUtn from '/src/assets/utn-icon.svg';
 import iconAgro from '/src/assets/agro-icon.svg';
 import iconCertificado from '/src/assets/certificate-icon.svg';
+import cvPdf from '/src/assets/cv.pdf';
 
 const educacion = ref([
   { 
@@ -70,10 +71,10 @@ const animarElemento = (elemento) => {
   <section class="educacion-section" id="educacion">
     <div class="container">
       <!-- Header -->
-      <div class="section-header">
+      <!-- <div class="section-header">
         <h2 class="section-title">Mi Formación Académica</h2>
         <p class="section-subtitle">Una trayectoria de aprendizaje constante y desarrollo profesional</p>
-      </div>
+      </div> -->
 
       <!-- Timeline Principal -->
       <div class="timeline-container">
@@ -217,7 +218,7 @@ const animarElemento = (elemento) => {
             Conectar en LinkedIn
           </a>
           <a 
-            href="/src/assets/cv.pdf" 
+            :href="cvPdf" 
             class="btn-cta cv"
             target="_blank"
             rel="noopener noreferrer"
@@ -233,13 +234,13 @@ const animarElemento = (elemento) => {
 
 <style scoped>
 .educacion-section {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 0;
+  background: #0f172a;
   position: relative;
   overflow: hidden;
 }
 
-.educacion-section::before {
+/* .educacion-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -247,11 +248,12 @@ const animarElemento = (elemento) => {
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, #10b981, transparent);
-}
+} */
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0;
   position: relative;
   z-index: 1;
 }
@@ -383,7 +385,7 @@ const animarElemento = (elemento) => {
 
 /* Educación Card */
 .educacion-card {
-  background: linear-gradient(145deg, #1e293b, #0f172a);
+  background: #0f172a;
   border-radius: 20px;
   padding: 2rem;
   border: 1px solid rgba(16, 185, 129, 0.2);
@@ -700,9 +702,9 @@ const animarElemento = (elemento) => {
 .educacion-cta {
   text-align: center;
   padding: 3rem;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.05));
+  background: #0f172a;
   border-radius: 20px;
-  border: 2px dashed rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .cta-text {
@@ -817,7 +819,7 @@ const animarElemento = (elemento) => {
 
 @media (max-width: 768px) {
   .educacion-section {
-    padding: 3rem 1rem;
+    padding: 0;
   }
   
   .section-title {
