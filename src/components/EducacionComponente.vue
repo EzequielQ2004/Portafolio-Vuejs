@@ -773,19 +773,20 @@ const animarElemento = (elemento) => {
 /* Responsive */
 @media (max-width: 992px) {
   .timeline-line {
-    left: 40px;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .timeline-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
   
   .timeline-marker {
     position: relative;
-    left: 0;
-    transform: none;
-    flex-direction: row;
+    left: 19%;
+    /* transform: translateX(-50%); */
+    flex-direction: column;
     gap: 1rem;
     margin-bottom: 1.5rem;
     align-items: center;
@@ -858,7 +859,7 @@ const animarElemento = (elemento) => {
   
   .timeline-marker {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 }
 </style>
