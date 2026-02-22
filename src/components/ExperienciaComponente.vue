@@ -76,8 +76,8 @@ const habilidadesBlandas = ref([
 </script>
 
 <template>
-    <div class="card">
-        <h3 class="titulo">{{ titulo.toLocaleUpperCase() }}</h3>
+    <section class="experiencia-section">
+        <!-- <h3 class="titulo">{{ titulo.toLocaleUpperCase() }}</h3> -->
         <p class="fecha">{{ fecha }}</p>
         
         <div class="experiencias-container">
@@ -120,33 +120,33 @@ const habilidadesBlandas = ref([
                     <a href="https://github.com/EzequielQ2004" target="_blank" class="cta-button github">
                         <img src="/src/assets/github.svg" width="20" alt="GitHub"> Ver GitHub
                     </a>
-                    <a href="https://ezequielquiroz-portafolio.netlify.app/" target="_blank" class="cta-button portfolio">
+                    <!-- <a href="https://ezequielquiroz-portafolio.netlify.app/" target="_blank" class="cta-button portfolio">
                         🌐 Ver Portafolio
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <style scoped>
-.card {
-    display: flex;
-    flex-direction: column;
-    padding: 2.5rem;
-    background: linear-gradient(135deg, #1a2733, #15202b);
-    border-radius: 15px;
-    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.6);
+.experiencia-section {
+    /* structural wrapper without visible container */
+    padding: 2.5rem 1rem;
     max-width: 900px;
-    margin: auto;
-    transition: transform 0.3s ease;
-    border: 1px solid #2d3748;
+    margin: 0 auto;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.7);
+/* noop hover to avoid card-like interaction */
+.experiencia-section:hover {
+    transform: none;
 }
+
+/* keep the old class around if referenced elsewhere */
+.card {
+    display: none;
+}
+
 
 .titulo {
     font-size: 2rem;
@@ -187,37 +187,22 @@ const habilidadesBlandas = ref([
 .item {
     display: flex;
     flex-direction: column;
-    padding: 1.8rem;
-    gap: 1.2rem;
-    background: linear-gradient(145deg, #253646, #1e2c3a);
-    border-radius: 12px;
-    border-left: 5px solid #4dabf7;
-    transition: all 0.3s ease;
+    padding: 1rem 0; /* vertical spacing between entries */
+    gap: 0.8rem;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    transition: none;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* subtle divider */
 }
 
-.item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #4dabf7, #339af0);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.item:last-child {
+    border-bottom: none;
 }
 
-.item:hover {
-    background: linear-gradient(145deg, #2d4559, #253646);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    transform: translateX(5px);
-}
-
-.item:hover::before {
-    opacity: 1;
-}
+/* removed pseudo-element and hover styles so items flow naturally */
 
 .icono-titulo {
     display: flex;
@@ -409,8 +394,17 @@ const habilidadesBlandas = ref([
 /* Responsive */
 @media (max-width: 768px) {
     .card {
-        padding: 1.5rem;
+        padding: 1rem;
         max-width: 100%;
+    }
+    
+    .experiencias-container {
+        gap: 1rem;
+    }
+
+    .item {
+        padding: 1rem;
+        gap: 0.8rem;
     }
     
     .texto-experiencia,
@@ -423,7 +417,7 @@ const habilidadesBlandas = ref([
     .icono-titulo {
         flex-direction: column;
         text-align: center;
-        gap: 1rem;
+        gap: 0.8rem;
     }
     
     .imagen-svg {
