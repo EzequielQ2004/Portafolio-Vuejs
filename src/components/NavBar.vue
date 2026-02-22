@@ -30,7 +30,7 @@
               :class="{ 'active': activeSection === nav.enlace }"
               class="nav-link"
             >
-              <span class="nav-icon">{{ nav.icon }}</span>
+              <span class="nav-icon" v-html="nav.iconSvg"></span>
               <span class="nav-text">{{ nav.nombre }}</span>
               <span class="nav-indicator"></span>
             </a>
@@ -69,14 +69,24 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 
-// Lista de elementos de navegación
+// SVG icons (Heroicons simplified)
+const svgIcons = {
+  home: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9v9a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4H9v4a2 2 0 01-2 2H3a2 2 0 01-2-2v-9z"/></svg>`,
+  academic: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.423A12.083 12.083 0 0118 18.152M12 14l-6.16-3.423A12.083 12.083 0 006 18.152"/></svg>`,
+  briefcase: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>`,
+  rocket: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21l-2-2l1-7l7-7l7 7l1 7l-2 2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7v4h4"/></svg>`,
+  bolt: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+  heart: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="currentColor" viewBox="0 0 24 24" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
+};
+
+// Lista de elementos de navegación con SVG
 const navegacion = ref([
-  { id: 1, nombre: "Inicio", enlace: "#inicio", icon: "🏠" },
-  { id: 2, nombre: "Educación", enlace: "#educacion", icon: "🎓" },
-  { id: 3, nombre: "Experiencia", enlace: "#experiencia", icon: "💼" },
-  { id: 4, nombre: "Proyectos", enlace: "#proyectos", icon: "🚀" },
-  { id: 5, nombre: "Habilidades", enlace: "#habilidades", icon: "⚡" },
-  { id: 6, nombre: "Intereses", enlace: "#intereses", icon: "❤️" }
+  { id: 1, nombre: "Inicio", enlace: "#inicio", iconSvg: svgIcons.home },
+  { id: 2, nombre: "Educación", enlace: "#educacion", iconSvg: svgIcons.academic },
+  { id: 3, nombre: "Experiencia", enlace: "#experiencia", iconSvg: svgIcons.briefcase },
+  { id: 4, nombre: "Proyectos", enlace: "#proyectos", iconSvg: svgIcons.rocket },
+  { id: 5, nombre: "Habilidades", enlace: "#habilidades", iconSvg: svgIcons.bolt },
+  { id: 6, nombre: "Intereses", enlace: "#intereses", iconSvg: svgIcons.heart }
 ]);
 
 // Estados reactivos
@@ -198,6 +208,18 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+
+/* icon styling */
+.nav-icon .icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    stroke-width: 2;
+    display: inline-block;
+    vertical-align: middle;
+    color: currentColor;
+}
+
+
 .navbar {
   position: fixed;
   top: 0;
