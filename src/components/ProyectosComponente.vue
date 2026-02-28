@@ -1,63 +1,83 @@
 <script setup>
 import { ref } from 'vue';
 
-import proyectoCapybara from '/src/assets/capybara-films.gif';
-import proyectoCapyGaming from '/src/assets/capygaming.png';
-import proyectoPractica from '/src/assets/proyectos-practica.png';
-import proyectoPortfolio from '/src/assets/portfolio.png';
+import impostorWeb from '/src/assets/impostorweb.gif';
+import proyectoCapyGaming from '/src/assets/capygaming.gif';
+import adivinaAnimalEmojis from '/src/assets/adivinaelanimalconemojis.gif';
+import adivinaLaBanderaWeb from '/src/assets/adivinalabandera.gif';
+import calculadoraAguinaldoSimple from '/src/assets/calculadoraaguinaldosimple.gif';
+import ferreteriaSanFranciscoWeb from '/src/assets/ferreteriasanfranciscoweb.gif';
 
 const misProyectos = ref([
     {
         id: 1,
-        src: proyectoCapybara,
-        titulo: "Capybara Films",
-        subtitulo: "Sistema de Gestión para Videoclub",
-        descripcion: "Sistema completo para gestión de alquiler y venta de películas desarrollado como proyecto universitario en equipo. Incluye módulos de inventario, clientes, ventas y reportes.",
-        anio: "2024",
-        tecnologias: ['Python', 'Flask', 'PostgreSQL', 'Git'],
-        proyectoLink: "https://github.com/PowerSystem2024/CapybaraFilms_ProyectoTercerSemestre",
-        githubLink: "https://github.com/PowerSystem2024/CapybaraFilms_ProyectoTercerSemestre/blob/main/CapybaraFilms/main.py",
-        // caracteristicas: ['Gestión de inventario', 'Sistema de ventas', 'Reportes automáticos', 'Interfaz gráfica']
-    },
-    {
-        id: 2,
         src: proyectoCapyGaming,
         titulo: "CapyGaming",
         subtitulo: "E-commerce Gamer",
         descripcion: "Plataforma de comercio electrónico especializada en productos gamers. Desarrollado colaborativamente aplicando metodologías ágiles y control de versiones.",
         anio: "2025",
-        tecnologias: ['HTML/CSS', 'JavaScript', 'GitHub', 'Vue', 'Node', 'Express', 'PostgreSQL', 'Metodologías Ágiles'],
+        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub', 'Vue', 'Node', 'Express', 'PostgreSQL', 'Metodologías Ágiles'],
         proyectoLink: "https://capygaming-frontend-uffp.onrender.com/",
         githubLink: "https://github.com/PowerSystem2024/CapyGaming-CarpinchosProgramando",
-        // caracteristicas: ['Carrito de compras', 'Catálogo de productos', 'Diseño responsive', 'Trabajo en equipo']
+    },
+    {
+        id: 2,
+        src: ferreteriaSanFranciscoWeb,
+        titulo: "Ferretería San Francisco Web",
+        subtitulo: "Sitio web para ferretería San Francisco",
+        descripcion: "Sitio web para ferretería San Francisco, con información sobre productos y servicios.",
+        anio: "2025-2026",
+        tecnologias: ['HTML', 'CSS', 'JavaScript', 'Vercel', 'Docker', 'GitHub', 'React', 'Vite', 'Tailwind CSS'],
+        proyectoLink: "https://ferreteria-san-francisco-web.vercel.app/",
+        githubLink: "https://github.com/Ferreteria-San-Francisco/ferreteria-san-francisco-web",
     },
     {
         id: 3,
-        src: proyectoPractica,
-        titulo: "Proyectos de Práctica",
-        subtitulo: "Repositorio de Ejercicios",
-        descripcion: "Colección de ejercicios y proyectos personales para practicar lógica de programación y diferentes tecnologías. Incluye soluciones a problemas algorítmicos y pequeñas aplicaciones.",
-        anio: "2023-2024",
-        tecnologias: ['Java', 'Python', 'JavaScript', 'Algoritmos'],
-        proyectoLink: "https://github.com/EzequielQ2004/Proyectos",
-        githubLink: "https://github.com/EzequielQ2004/Proyectos/blob/main/Proyectos%20Intermedios/Python/JuegoDelAhorcadoPy/juegoDelAhorcado/juegoDelAhorcado.py",
-        // caracteristicas: ['Ejercicios de lógica', 'Proyectos pequeños', 'Múltiples lenguajes', 'Aprendizaje autodidacta']
+        src: impostorWeb,
+        titulo: "Juego del Impostor",
+        subtitulo: "juego del impostor para jugar en el navegador",
+        descripcion: "El juego permite agregar jugadores, elegir categorías de palabras y el número de impostores por partida. ¡Prepárate para descubrir quién es el impostor y ganar el juego!",
+        anio: "2026",
+        tecnologias: ['JavaScript','HTML', 'CSS', 'GitHub Pages'],
+        proyectoLink: "https://ezequielq2004.github.io/impostor-web/",
+        githubLink: "https://github.com/EzequielQ2004/impostor-web",
     },
     {
         id: 4,
-        src: proyectoPortfolio,
-        titulo: "Portafolio Web Personal",
-        subtitulo: "Sitio Web Profesional",
-        descripcion: "Portafolio web desarrollado con Vue.js para mostrar mis proyectos, habilidades y experiencia. Diseño moderno, responsive y optimizado para SEO.",
-        anio: "2024",
-        tecnologias: ['Vue.js', 'CSS3', 'JavaScript', 'Netlify'],
-        proyectoLink: "https://ezequielquiroz-portafolio.netlify.app/",
-        githubLink: "https://github.com/EzequielQ2004/Portafolio-Vuejs",
-        // caracteristicas: ['Diseño responsive', 'Animaciones CSS', 'Vue.js Components', 'Despliegue en Netlify']
-    }
+        src: adivinaLaBanderaWeb,
+        titulo: "Adivina la Bandera",
+        subtitulo: "Juego simple para entretener y aprender banderas directamente en tu navegador - ¡Sin instalaciones!",
+        descripcion: "El juego perimite elegir entre 3 niveles de difucultadad, cada uno con un número diferente de banderas a adivinar. ¡Pon a prueba tus conocimientos geográficos y diviértete adivinando banderas de todo el mundo!",
+        anio: "2026",
+        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+        proyectoLink: "https://ezequielq2004.github.io/AdivinaLaBanderaWeb/",
+        githubLink: "https://github.com/EzequielQ2004/AdivinaLaBanderaWeb",
+    },
+    {
+        id: 5,
+        src: adivinaAnimalEmojis,
+        titulo: "Adivina el Animal con Emojis",
+        subtitulo: "Juego interactivo para adivinar animales usando emojis",
+        descripcion: "Un juego interactivo y educativo donde debes adivinar animales basándote en pistas visuales representadas por emojis.",
+        anio: "2026",
+        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+        proyectoLink: "https://ezequielq2004.github.io/adivinaanimalemojis/",
+        githubLink: "https://github.com/EzequielQ2004/adivinaanimalemojis",
+    },
+    {
+        id: 6,
+        src: calculadoraAguinaldoSimple,
+        titulo: "Calculadora de Aguinaldo Simple",
+        subtitulo: "Calculadora simple para calcular el aguinaldo de empleados",
+        descripcion: "Una calculadora simple para calcular el aguinaldo de empleados según su salario y antigüedad. Ideal para uso en entornos laborales.",
+        anio: "2025",
+        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+        proyectoLink: "https://ezequielq2004.github.io/calculadora-aguinaldo-simple/",
+        githubLink: "https://github.com/EzequielQ2004/calculadora-aguinaldo-simple",
+    },
 ]);
 
-const filtros = ref(['Todos', 'Java', 'Web', 'Universidad', 'Personal']);
+const filtros = ref(['Todos', 'Personal', 'Grupal']);
 const filtroActivo = ref('Todos');
 
 function filtrarProyectos(tecnologia) {
@@ -77,10 +97,8 @@ const proyectosMostrados = computed(() => {
     return misProyectos.value.filter(proyecto => {
         // Mapear filtros a tecnologías específicas
         const mapFiltros = {
-            'Java': ['Java', 'Swing', 'MySQL'],
-            'Web': ['HTML/CSS', 'JavaScript', 'Vue.js'],
-            'Universidad': proyecto.titulo.includes('Capy') || proyecto.subtitulo.includes('Universidad'),
-            'Personal': proyecto.titulo.includes('Portafolio') || proyecto.titulo.includes('Práctica')
+            'Grupal': proyecto.titulo.includes('Capy') || proyecto.titulo.includes('Web'),
+            'Personal': proyecto.titulo.includes('Juego') || proyecto.titulo.includes('Adivina') || proyecto.titulo.includes('Calculadora'),
         };
         
         if (typeof mapFiltros[filtroActivo.value] === 'boolean') {
