@@ -17,7 +17,7 @@ const misProyectos = ref([
         tecnologias: ['Python', 'Flask', 'PostgreSQL', 'Git'],
         proyectoLink: "https://github.com/PowerSystem2024/CapybaraFilms_ProyectoTercerSemestre",
         githubLink: "https://github.com/PowerSystem2024/CapybaraFilms_ProyectoTercerSemestre/blob/main/CapybaraFilms/main.py",
-        caracteristicas: ['Gestión de inventario', 'Sistema de ventas', 'Reportes automáticos', 'Interfaz gráfica']
+        // caracteristicas: ['Gestión de inventario', 'Sistema de ventas', 'Reportes automáticos', 'Interfaz gráfica']
     },
     {
         id: 2,
@@ -29,7 +29,7 @@ const misProyectos = ref([
         tecnologias: ['HTML/CSS', 'JavaScript', 'GitHub', 'Vue', 'Node', 'Express', 'PostgreSQL', 'Metodologías Ágiles'],
         proyectoLink: "https://capygaming-frontend-uffp.onrender.com/",
         githubLink: "https://github.com/PowerSystem2024/CapyGaming-CarpinchosProgramando",
-        caracteristicas: ['Carrito de compras', 'Catálogo de productos', 'Diseño responsive', 'Trabajo en equipo']
+        // caracteristicas: ['Carrito de compras', 'Catálogo de productos', 'Diseño responsive', 'Trabajo en equipo']
     },
     {
         id: 3,
@@ -41,7 +41,7 @@ const misProyectos = ref([
         tecnologias: ['Java', 'Python', 'JavaScript', 'Algoritmos'],
         proyectoLink: "https://github.com/EzequielQ2004/Proyectos",
         githubLink: "https://github.com/EzequielQ2004/Proyectos/blob/main/Proyectos%20Intermedios/Python/JuegoDelAhorcadoPy/juegoDelAhorcado/juegoDelAhorcado.py",
-        caracteristicas: ['Ejercicios de lógica', 'Proyectos pequeños', 'Múltiples lenguajes', 'Aprendizaje autodidacta']
+        // caracteristicas: ['Ejercicios de lógica', 'Proyectos pequeños', 'Múltiples lenguajes', 'Aprendizaje autodidacta']
     },
     {
         id: 4,
@@ -53,7 +53,7 @@ const misProyectos = ref([
         tecnologias: ['Vue.js', 'CSS3', 'JavaScript', 'Netlify'],
         proyectoLink: "https://ezequielquiroz-portafolio.netlify.app/",
         githubLink: "https://github.com/EzequielQ2004/Portafolio-Vuejs",
-        caracteristicas: ['Diseño responsive', 'Animaciones CSS', 'Vue.js Components', 'Despliegue en Netlify']
+        // caracteristicas: ['Diseño responsive', 'Animaciones CSS', 'Vue.js Components', 'Despliegue en Netlify']
     }
 ]);
 
@@ -97,10 +97,10 @@ const proyectosMostrados = computed(() => {
 <template>
     <section class="proyectos-section" id="proyectos">
         <div class="container">
-            <div class="section-header">
+            <!-- <div class="section-header">
                 <h2 class="section-title">Mis Proyectos</h2>
                 <p class="section-subtitle">Una muestra de mi trabajo y aprendizaje en desarrollo de software</p>
-            </div>
+            </div> -->
 
             <!-- Filtros -->
             <div class="filtros-container">
@@ -152,14 +152,14 @@ const proyectosMostrados = computed(() => {
                         
                         <p class="proyecto-descripcion">{{ proyecto.descripcion }}</p>
                         
-                        <div class="proyecto-caracteristicas">
+                        <!-- <div class="proyecto-caracteristicas">
                             <h4>Características:</h4>
                             <ul>
                                 <li v-for="(caracteristica, index) in proyecto.caracteristicas" :key="index">
                                     {{ caracteristica }}
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         
                         <div class="proyecto-actions">
                             <a 
@@ -221,19 +221,7 @@ const proyectosMostrados = computed(() => {
 <style scoped>
 .proyectos-section {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, #0a192f 0%, #0d1b2a 100%);
     position: relative;
-    overflow: hidden;
-}
-
-.proyectos-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #4dabf7, transparent);
 }
 
 .container {
@@ -595,8 +583,33 @@ const proyectosMostrados = computed(() => {
     }
     
     .galeria {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
         gap: 1.5rem;
+        padding-bottom: 2rem;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+
+    .galeria::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .galeria::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+    }
+    
+    .galeria::-webkit-scrollbar-thumb {
+        background: rgba(77, 171, 247, 0.5);
+        border-radius: 10px;
+    }
+
+    .proyecto-card {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+        max-width: 350px; /* Optional tight limit so it looks good */
     }
     
     .estadisticas {
