@@ -16,7 +16,7 @@ const initialMessage = {
   options: [
     { text: "📋 Ver secciones del portafolio", action: "sections" },
     { text: "🎓 Conocer a Ezequiel", action: "about" },
-    { text: "💼 Ver experiencia", action: "experience" },
+    // { text: "💼 Ver experiencia", action: "experience" },
     { text: "🚀 Ver proyectos", action: "projects" },
     { text: "⚡ Ver habilidades", action: "skills" },
     { text: "📞 Contacto", action: "contact" }
@@ -30,7 +30,7 @@ const options = {
     options: [
       { text: "🏠 Inicio - Datos personales", action: "scroll:inicio" },
       { text: "🎓 Educación - Formación académica", action: "scroll:educacion" },
-      { text: "💼 Experiencia - Trayectoria profesional", action: "scroll:experiencia" },
+      // { text: "💼 Experiencia - Trayectoria profesional", action: "scroll:experiencia" },
       { text: "🚀 Proyectos - Trabajos realizados", action: "scroll:proyectos" },
       { text: "⚡ Habilidades - Conocimientos técnicos", action: "scroll:habilidades" },
       { text: "❤️ Intereses - Pasiones personales", action: "scroll:intereses" },
@@ -42,7 +42,7 @@ const options = {
     options: [
       { text: "📞 Información de contacto", action: "contact" },
       { text: "🎓 Formación académica", action: "education" },
-      { text: "💼 Experiencia profesional", action: "experience" },
+      // { text: "💼 Experiencia profesional", action: "experience" },
       { text: "🔙 Volver al menú principal", action: "menu" }
     ]
   },
@@ -178,7 +178,7 @@ function getSectionName(sectionId) {
   const names = {
     'inicio': 'Inicio',
     'educacion': 'Educación',
-    'experiencia': 'Experiencia',
+    // 'experiencia': 'Experiencia',
     'proyectos': 'Proyectos',
     'habilidades': 'Habilidades',
     'intereses': 'Intereses'

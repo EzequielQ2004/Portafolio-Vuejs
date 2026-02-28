@@ -83,7 +83,7 @@ const svgIcons = {
 const navegacion = ref([
   { id: 1, nombre: "Inicio", enlace: "#inicio", iconSvg: svgIcons.home },
   { id: 2, nombre: "Educación", enlace: "#educacion", iconSvg: svgIcons.academic },
-  { id: 3, nombre: "Experiencia", enlace: "#experiencia", iconSvg: svgIcons.briefcase },
+  // { id: 3, nombre: "Experiencia", enlace: "#experiencia", iconSvg: svgIcons.briefcase },
   { id: 4, nombre: "Proyectos", enlace: "#proyectos", iconSvg: svgIcons.rocket },
   { id: 5, nombre: "Habilidades", enlace: "#habilidades", iconSvg: svgIcons.bolt },
   { id: 6, nombre: "Intereses", enlace: "#intereses", iconSvg: svgIcons.heart }
