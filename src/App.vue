@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import NavBar from './components/NavBar.vue';
+import LoadingScreen from './components/LoadingScreen.vue';
 import DatosPersonales from './components/DatosPersonales.vue';
 import Educacion from './components/EducacionComponente.vue';
 // import ExperienciaComponente from './components/ExperienciaComponente.vue';
@@ -10,12 +11,20 @@ import HabilidadesComponente from './components/HabilidadesComponente.vue';
 import Chatbot from './components/Chatbot.vue';
 // import ContactoComponente from './components/ContactoComponente.vue';
 
+// Estado de carga
+const isLoading = ref(true);
+
 // Estado para mostrar/ocultar botón de volver arriba
 const showScrollTop = ref(false);
 
 // Manejar scroll para mostrar/ocultar botón
 const handleScroll = () => {
   showScrollTop.value = window.scrollY > 500;
+};
+
+// Manejar completado de carga
+const handleLoadingComplete = () => {
+  isLoading.value = false;
 };
 
 // Scroll suave al top
@@ -31,6 +40,9 @@ let observer;
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
+  
+  // Escuchar evento de carga completada
+  window.addEventListener('loading-complete', handleLoadingComplete);
   
   // Configurar Intersection Observer para animaciones
   observer = new IntersectionObserver((entries) => {
@@ -52,6 +64,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('loading-complete', handleLoadingComplete);
   if (observer) {
     observer.disconnect();
   }
@@ -60,18 +73,23 @@ onUnmounted(() => {
 
 <template>
   <div class="app-container">
-    <!-- Navegación -->
-    <NavBar />
+    <!-- Pantalla de Carga -->
+    <LoadingScreen v-if="isLoading" />
 
-    <Chatbot />
-    
-    <!-- Header Principal -->
-    <header class="main-header" id="inicio">
-      <DatosPersonales />
-    </header>
+    <!-- Contenido Principal (solo visible cuando no está cargando) -->
+    <div class="main-content-wrapper" :class="{ 'content-hidden': isLoading }">
+      <!-- Navegación -->
+      <NavBar />
 
-    <!-- Contenido Principal -->
-    <main class="main-content">
+      <Chatbot />
+      
+      <!-- Header Principal -->
+      <header class="main-header" id="inicio">
+        <DatosPersonales />
+      </header>
+
+      <!-- Contenido Principal -->
+      <main class="main-content">
       <!-- Sección de Educación -->
       <section 
         id="educacion" 
@@ -330,6 +348,7 @@ onUnmounted(() => {
     <div class="progress-bar">
       <div class="progress-fill"></div>
     </div>
+    </div>
   </div>
   
 </template>
@@ -362,6 +381,19 @@ html, body {
   margin: 0;
   overflow-x: hidden;
   width: 100%;
+}
+
+/* Transiciones para el contenido principal */
+.main-content-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.main-content-wrapper.content-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
 }
 
 main {
