@@ -76,12 +76,13 @@ onUnmounted(() => {
     <!-- Pantalla de Carga -->
     <LoadingScreen v-if="isLoading" />
 
+    <!-- Chatbot flotante - visible en todo el portafolio -->
+    <Chatbot />
+
     <!-- Contenido Principal (solo visible cuando no está cargando) -->
     <div class="main-content-wrapper" :class="{ 'content-hidden': isLoading }">
       <!-- Navegación -->
       <NavBar />
-
-      <Chatbot />
       
       <!-- Header Principal -->
       <header class="main-header" id="inicio">
@@ -343,7 +344,7 @@ onUnmounted(() => {
     >
       <span class="arrow-up">↑</span>
     </button>
-
+    
     <!-- Progress bar -->
     <div class="progress-bar">
       <div class="progress-fill"></div>

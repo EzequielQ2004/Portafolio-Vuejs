@@ -1,6 +1,25 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+// Import SVG icons
+import ChatIcon from './icons/ChatIcon.vue';
+import CloseIcon from './icons/CloseIcon.vue';
+import BotIcon from './icons/BotIcon.vue';
+import SendIcon from './icons/SendIcon.vue';
+import SectionsIcon from './icons/SectionsIcon.vue';
+import EducationIcon from './icons/EducationIcon.vue';
+import ProjectsIcon from './icons/ProjectsIcon.vue';
+import SkillsIcon from './icons/SkillsIcon.vue';
+import ContactIcon from './icons/ContactIcon.vue';
+import HomeIcon from './icons/HomeIcon.vue';
+import BackIcon from './icons/BackIcon.vue';
+import EmailIcon from './icons/EmailIcon.vue';
+import GithubIcon from './icons/GithubIcon.vue';
+import TargetIcon from './icons/TargetIcon.vue';
+import LinkIcon from './icons/LinkIcon.vue';
+import CodeIcon from './icons/CodeIcon.vue';
+import UserIcon from './icons/UserIcon.vue';
+
 // Estados del chatbot
 const isOpen = ref(false);
 const messages = ref([]);
@@ -14,12 +33,12 @@ const initialMessage = {
   sender: 'bot',
   timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
   options: [
-    { text: "📋 Ver secciones del portafolio", action: "sections" },
-    { text: "🎓 Conocer a Ezequiel", action: "about" },
-    // { text: "💼 Ver experiencia", action: "experience" },
-    { text: "🚀 Ver proyectos", action: "projects" },
-    { text: "⚡ Ver habilidades", action: "skills" },
-    { text: "📞 Contacto", action: "contact" }
+    { text: "Ver secciones del portafolio", action: "sections", icon: SectionsIcon },
+    { text: "Conocer a Ezequiel", action: "about", icon: UserIcon },
+    // { text: "Ver experiencia", action: "experience", icon: CodeIcon },
+    { text: "Ver proyectos", action: "projects", icon: ProjectsIcon },
+    { text: "Ver habilidades", action: "skills", icon: SkillsIcon },
+    { text: "Contacto", action: "contact", icon: ContactIcon }
   ]
 };
 
@@ -28,55 +47,55 @@ const options = {
   sections: {
     text: "El portafolio tiene estas secciones:",
     options: [
-      { text: "🏠 Inicio - Datos personales", action: "scroll:inicio" },
-      { text: "🎓 Educación - Formación académica", action: "scroll:educacion" },
-      // { text: "💼 Experiencia - Trayectoria profesional", action: "scroll:experiencia" },
-      { text: "🚀 Proyectos - Trabajos realizados", action: "scroll:proyectos" },
-      { text: "⚡ Habilidades - Conocimientos técnicos", action: "scroll:habilidades" },
-      // { text: "❤️ Intereses - Pasiones personales", action: "scroll:intereses" },
-      { text: "🔙 Volver al menú", action: "menu" }
+      { text: "Inicio - Datos personales", action: "scroll:inicio", icon: HomeIcon },
+      { text: "Educación - Formación académica", action: "scroll:educacion", icon: EducationIcon },
+      // { text: "Experiencia - Trayectoria profesional", action: "scroll:experiencia", icon: CodeIcon },
+      { text: "Proyectos - Trabajos realizados", action: "scroll:proyectos", icon: ProjectsIcon },
+      { text: "Habilidades - Conocimientos técnicos", action: "scroll:habilidades", icon: SkillsIcon },
+      // { text: "Intereses - Pasiones personales", action: "scroll:intereses", icon: HeartIcon },
+      { text: "Volver al menú", action: "menu", icon: BackIcon }
     ]
   },
   about: {
     text: "Ezequiel es un desarrollador web en formación apasionado por la tecnología. Tiene formación técnica en agropecuaria y actualmente estudia programación en la UTN. Es proactivo, con rápido aprendizaje y excelente trabajo en equipo.",
     options: [
-      { text: "📞 Información de contacto", action: "contact" },
-      { text: "🎓 Formación académica", action: "education" },
-      // { text: "💼 Experiencia profesional", action: "experience" },
-      { text: "🔙 Volver al menú principal", action: "menu" }
+      { text: "Información de contacto", action: "contact", icon: ContactIcon },
+      { text: "Formación académica", action: "education", icon: EducationIcon },
+      // { text: "Experiencia profesional", action: "experience", icon: CodeIcon },
+      { text: "Volver al menú principal", action: "menu", icon: BackIcon }
     ]
   },
   experience: {
     text: "Ezequiel tiene experiencia como desarrollador backend en Ferretería San Francisco (pasantía remota) y varios proyectos universitarios colaborativos. Actualmente busca su primera oportunidad profesional como desarrollador junior.",
     options: [
-      { text: "👨‍💻 Ver proyectos específicos", action: "projects" },
-      { text: "📚 Ver formación", action: "education" },
-      { text: "🔙 Volver al menú", action: "menu" }
+      { text: "Ver proyectos específicos", action: "projects", icon: CodeIcon },
+      { text: "Ver formación", action: "education", icon: EducationIcon },
+      { text: "Volver al menú", action: "menu", icon: BackIcon }
     ]
   },
   skills: {
     text: "Habilidades técnicas: JavaScript, Vue.js, React, HTML/CSS, Java, Python, Git, MySQL. Habilidades personales: Aprendizaje rápido, trabajo en equipo, adaptabilidad, resolución de problemas.",
     options: [
-      { text: "💻 Ver proyectos con estas habilidades", action: "projects" },
-      { text: "🎓 Cómo aprendió estas skills", action: "education" },
-      { text: "🔙 Menú principal", action: "menu" }
+      { text: "Ver proyectos con estas habilidades", action: "projects", icon: CodeIcon },
+      { text: "Cómo aprendió estas skills", action: "education", icon: EducationIcon },
+      { text: "Menú principal", action: "menu", icon: BackIcon }
     ]
   },
   education: {
-    text: "📚 Educación:\n• UTN San Rafael - Tecnicatura en Programación (2024-2025)\n• Escuela Agropecuaria Antonio Di Benedetto - Técnico Agropecuario (2018-2023)",
+    text: "Educación:\n• UTN San Rafael - Tecnicatura en Programación (2024-2025)\n• Escuela Agropecuaria Antonio Di Benedetto - Técnico Agropecuario (2018-2023)",
     options: [
-      { text: "🎯 Proyectos universitarios", action: "projects" },
-      { text: "💼 Experiencia práctica", action: "experience" },
-      { text: "🔙 Menú principal", action: "menu" }
+      { text: "Proyectos universitarios", action: "projects", icon: TargetIcon },
+      { text: "Experiencia práctica", action: "experience", icon: CodeIcon },
+      { text: "Menú principal", action: "menu", icon: BackIcon }
     ]
   },
   contact: {
-    text: "📞 Contacto:\n• Email: quirozarielezequiel@gmail.com\n• Teléfono: +54 2604-005223\n• LinkedIn: linkedin.com/in/ezequielquiroz\n• GitHub: github.com/EzequielQ2004\n• Portafolio: ezequielquiroz-portafolio.netlify.app",
+    text: "Contacto:\n• Email: quirozarielezequiel@gmail.com\n• Teléfono: +54 2604-005223\n• LinkedIn: linkedin.com/in/ezequielquiroz\n• GitHub: github.com/EzequielQ2004\n• Portafolio: ezequielquiroz-portafolio.netlify.app",
     options: [
-      { text: "📧 Copiar email", action: "copy:email" },
-      { text: "🐙 Ir a GitHub", action: "link:github" },
-      { text: "👨‍💼 Ir a LinkedIn", action: "link:linkedin" },
-      { text: "🔙 Menú principal", action: "menu" }
+      { text: "Copiar email", action: "copy:email", icon: EmailIcon },
+      { text: "Ir a GitHub", action: "link:github", icon: GithubIcon },
+      { text: "Ir a LinkedIn", action: "link:linkedin", icon: ContactIcon },
+      { text: "Menú principal", action: "menu", icon: BackIcon }
     ]
   },
 
@@ -85,12 +104,12 @@ const options = {
     options: initialMessage.options
   },
   projects: {
-    text: "🚀 Proyectos destacados:\n\n• Capybara Films - Sistema de gestión para videoclub (Java, MySQL)\n• CapyGaming - E-commerce de productos gamers (HTML/CSS/JS)\n• Portafolio Web - Este sitio desarrollado con Vue.js\n• Repositorio de ejercicios - Práctica de algoritmos y lógica",
+    text: "Proyectos destacados:\n\n• Capybara Films - Sistema de gestión para videoclub (Java, MySQL)\n• CapyGaming - E-commerce de productos gamers (HTML/CSS/JS)\n• Portafolio Web - Este sitio desarrollado con Vue.js\n• Repositorio de ejercicios - Práctica de algoritmos y lógica",
     options: [
-      { text: "🎯 Ver sección de proyectos", action: "scroll:proyectos" },
-      { text: "🔗 Ir a GitHub (ver código)", action: "link:github" },
-      { text: "🎓 Ver formación relacionada", action: "education" },
-      { text: "🔙 Volver al menú", action: "menu" }
+      { text: "Ver sección de proyectos", action: "scroll:proyectos", icon: TargetIcon },
+      { text: "Ir a GitHub (ver código)", action: "link:github", icon: GithubIcon },
+      { text: "Ver formación relacionada", action: "education", icon: EducationIcon },
+      { text: "Volver al menú", action: "menu", icon: BackIcon }
     ]
   }
 };
@@ -348,8 +367,8 @@ function autoResize(event) {
     :class="{ 'chat-button-active': isOpen }"
     aria-label="Abrir chatbot"
   >
-    <span v-if="!isOpen" class="chat-icon">💬</span>
-    <span v-else class="chat-icon">✕</span>
+    <ChatIcon v-if="!isOpen" class="chat-icon" />
+    <CloseIcon v-else class="chat-icon" />
   </button>
 
   <!-- Ventana del chat -->
@@ -357,13 +376,15 @@ function autoResize(event) {
     <!-- Header del chat -->
     <div class="chat-header">
       <div class="chat-title">
-        <span class="chatbot-avatar">🤖</span>
+        <BotIcon class="chatbot-avatar" />
         <div class="chatbot-info">
           <h3>Asistente de Ezequiel</h3>
           <p>En línea · Listo para ayudar</p>
         </div>
       </div>
-      <button class="close-chat" @click="toggleChat" aria-label="Cerrar chat">×</button>
+      <button class="close-chat" @click="toggleChat" aria-label="Cerrar chat">
+        <CloseIcon />
+      </button>
     </div>
 
     <!-- Área de mensajes -->
@@ -386,6 +407,7 @@ function autoResize(event) {
               @click="handleOption(option)"
               class="option-button"
             >
+              <component :is="option.icon" v-if="option.icon" class="option-icon" />
               {{ option.text }}
             </button>
           </div>
@@ -407,10 +429,22 @@ function autoResize(event) {
     <!-- Área de entrada -->
     <div class="chat-input-container">
       <div class="quick-actions">
-        <button @click="handleOption({ action: 'sections' })" class="quick-action">📋 Secciones</button>
-        <button @click="handleOption({ action: 'contact' })" class="quick-action">📞 Contacto</button>
-        <button @click="handleOption({ action: 'projects' })" class="quick-action">🚀 Proyectos</button>
-        <button @click="handleOption({ action: 'menu' })" class="quick-action">🏠 Menú</button>
+        <button @click="handleOption({ action: 'sections' })" class="quick-action">
+          <SectionsIcon class="quick-icon" />
+          Secciones
+        </button>
+        <button @click="handleOption({ action: 'contact' })" class="quick-action">
+          <ContactIcon class="quick-icon" />
+          Contacto
+        </button>
+        <button @click="handleOption({ action: 'projects' })" class="quick-action">
+          <ProjectsIcon class="quick-icon" />
+          Proyectos
+        </button>
+        <button @click="handleOption({ action: 'menu' })" class="quick-action">
+          <HomeIcon class="quick-icon" />
+          Menú
+        </button>
       </div>
       
       <div class="input-wrapper">
@@ -428,7 +462,7 @@ function autoResize(event) {
           :disabled="!userInput.trim() || isLoading"
           aria-label="Enviar mensaje"
         >
-          <span class="send-icon">📤</span>
+          <SendIcon class="send-icon" />
         </button>
       </div>
       
@@ -454,7 +488,7 @@ function autoResize(event) {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  z-index: 9999;
+  z-index: 10000; /* Increased z-index */
   border: 1px solid rgba(79, 70, 229, 0.3);
   overflow: hidden;
   animation: slideUp 0.3s ease;
@@ -655,6 +689,15 @@ function autoResize(event) {
   cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.option-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .option-button:hover {
@@ -709,6 +752,15 @@ function autoResize(event) {
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.quick-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 .quick-action:hover {
@@ -770,7 +822,9 @@ function autoResize(event) {
 }
 
 .send-icon {
-  font-size: 1.2rem;
+  width: 18px;
+  height: 18px;
+  color: white;
 }
 
 .input-hint {
@@ -778,6 +832,18 @@ function autoResize(event) {
   color: rgba(255, 255, 255, 0.5);
   margin-top: 0.5rem;
   text-align: center;
+}
+
+/* SVG icons */
+.svg-icon {
+  width: 16px;
+  height: 16px;
+  fill: #a5b4fc;
+  transition: fill 0.3s ease;
+}
+
+.svg-icon:hover {
+  fill: white;
 }
 
 /* Para notebooks/pantallas medianas */
