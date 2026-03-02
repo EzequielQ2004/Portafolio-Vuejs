@@ -160,10 +160,10 @@ onUnmounted(() => {
     <section class="habilidades-section" id="habilidades">
         <div class="container">
             <!-- Header -->
-            <div class="section-header">
+            <!-- <div class="section-header">
                 <h2 class="section-title">Mis Habilidades</h2>
                 <p class="section-subtitle">Conocimientos técnicos y herramientas que domino</p>
-            </div>
+            </div> -->
 
             <!-- Filtros -->
             <div class="filtros-container">
