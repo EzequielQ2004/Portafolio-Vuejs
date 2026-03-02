@@ -31,3 +31,32 @@ coverage
 
 # Local Netlify folder
 .netlify
+
+# Seguridad - Variables de entorno
+.env.local
+.env.*.local
+.env.production
+.env.staging
+
+# Seguridad - Logs y datos sensibles
+security-logs/
+*.security.log
+security-logs.json
+
+# Seguridad - Archivos de configuración con secretos
+config/secrets.json
+secrets/
+*.key
+*.pem
+*.p12
+
+# Seguridad - Backups de bases de datos o datos sensibles
+backups/
+*.db.backup
+*.sql.backup
+
+# Seguridad - Archivos temporales con datos sensibles
+temp/
+tmp/
+*.temp
+*.tmp

@@ -1,6 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+// Importar utilidades de seguridad
+import { 
+  sanitizeInput, 
+  checkRateLimit, 
+  detectBot, 
+  logSecurityEvent,
+  enforceHTTPS 
+} from '../utils/security.js';
+
+// Forzar HTTPS en producción
+enforceHTTPS();
+
 // Import SVG icons
 import ChatIcon from './icons/ChatIcon.vue';
 import CloseIcon from './icons/CloseIcon.vue';
@@ -247,13 +259,49 @@ function showDetails(section) {
   }
 }
 
-// Manejar envío de mensajes
+// Manejar envío de mensajes con seguridad
 function sendMessage() {
   if (!userInput.value.trim()) return;
   
-  addMessage(userInput.value, 'user');
-  processUserInput(userInput.value);
-  userInput.value = '';
+  // Detectar bots
+  if (detectBot()) {
+    logSecurityEvent('bot_detected', { 
+      userAgent: navigator.userAgent,
+      input: userInput.value.substring(0, 50) 
+    });
+    addBotMessage('Por favor, completa la verificación para continuar.');
+    return;
+  }
+  
+  // Verificar rate limiting
+  const rateLimit = checkRateLimit();
+  if (!rateLimit.allowed) {
+    const waitMinutes = Math.ceil(rateLimit.waitTime / 60000);
+    addBotMessage(`Por seguridad, espera ${waitMinutes} minuto(s) antes de enviar otro mensaje.`);
+    return;
+  }
+  
+  try {
+    // Sanitizar entrada
+    const sanitizedInput = sanitizeInput(userInput.value);
+    
+    // Registrar evento de seguridad
+    logSecurityEvent('message_sent', { 
+      length: sanitizedInput.length,
+      timestamp: new Date().toISOString()
+    });
+    
+    addMessage(sanitizedInput, 'user');
+    processUserInput(sanitizedInput);
+    userInput.value = '';
+  } catch (error) {
+    logSecurityEvent('input_validation_failed', { 
+      error: error.message,
+      input: userInput.value.substring(0, 50)
+    });
+    
+    addBotMessage('Por favor, evita usar caracteres especiales o contenido no permitido. Intenta de nuevo.');
+  }
 }
 
 function processUserInput(input) {
