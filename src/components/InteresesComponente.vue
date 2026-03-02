@@ -478,7 +478,7 @@ const interesesPrincipales = ref([
 /* Responsive */
 @media (max-width: 768px) {
     .intereses-section {
-        padding: 3rem 1rem;
+        padding: 2rem 1rem;
     }
     
     .section-title {

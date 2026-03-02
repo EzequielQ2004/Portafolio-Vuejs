@@ -334,6 +334,23 @@ onUnmounted(() => {
   
 </template>
 
+<style>
+/* Estilos globales para eliminar márgenes */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+</style>
+
 <style scoped>
 .app-container {
   min-height: 100vh;
@@ -341,12 +358,21 @@ onUnmounted(() => {
   flex-direction: column;
   background: #0f172a;
   position: relative;
+  padding-bottom: 0;
+  margin: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  width: 100%;
 }
 
 /* Header Principal */
 .main-header {
-  padding: 80px 2rem 5rem; /* Compensar navbar + padding */
-  background: #0f172a; /* Mismo fondo que app-container */
+  padding: 80px 2rem 3rem;
+  background: #0f172a;
 }
 
 /* Secciones */
@@ -477,13 +503,20 @@ section {
 .main-footer {
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4rem 2rem 2rem;
+  padding: 3rem 0 2rem;
   margin-top: auto;
+  margin-bottom: 0;
+  width: 100%;
+  position: relative;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
 }
 
 .footer-container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .footer-content {
@@ -715,8 +748,12 @@ section {
 }
 
 @media (max-width: 768px) {
+  .main-header {
+    padding: 60px 1rem 3rem;
+  }
+  
   .content-section {
-    padding: 3rem 0;
+    padding: 2rem 1rem;
   }
   
   .section-container {
@@ -742,19 +779,59 @@ section {
     justify-content: center;
   }
   
+  /* Footer móvil optimizado */
+  .main-footer {
+    padding: 2rem 0.5rem 1.5rem;
+  }
+  
   .footer-content {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-info {
+    text-align: center;
+    align-items: center;
+  }
+  
+  .footer-brand {
+    justify-content: center;
   }
   
   .footer-links {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .links-column {
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  .links-column h4 {
+    margin-bottom: 0.8rem;
+  }
+  
+  .footer-newsletter {
+    text-align: center;
+  }
+  
+  .footer-newsletter h4 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-newsletter p {
+    margin-bottom: 1rem;
   }
   
   .footer-bottom {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    padding-top: 1rem;
   }
 }
 

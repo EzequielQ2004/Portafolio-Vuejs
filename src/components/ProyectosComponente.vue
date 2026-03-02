@@ -593,7 +593,7 @@ const proyectosMostrados = computed(() => {
 /* Responsive */
 @media (max-width: 768px) {
     .proyectos-section {
-        padding: 3rem 1rem;
+        padding: 2rem 1rem;
     }
     
     .section-title {

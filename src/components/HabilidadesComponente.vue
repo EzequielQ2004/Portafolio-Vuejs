@@ -879,7 +879,7 @@ onUnmounted(() => {
 /* Responsive */
 @media (max-width: 768px) {
     .habilidades-section {
-        padding: 3rem 0;
+        padding: 2rem 1rem;
     }
     
     .container {

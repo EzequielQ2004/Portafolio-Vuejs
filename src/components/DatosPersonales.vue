@@ -232,6 +232,10 @@ const telefono = '+54 2604-005223';
 }
 
 @media (max-width: 768px) {
+  .datos-personales-container {
+    padding-top: 1rem;
+  }
+  
   .contenido-wrapper {
     gap: 1.5rem;
     padding: 0 1rem;

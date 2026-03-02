@@ -820,7 +820,7 @@ const animarElemento = (elemento) => {
 
 @media (max-width: 768px) {
   .educacion-section {
-    padding: 0;
+    padding: 2rem 1rem;
   }
   
   .section-title {
