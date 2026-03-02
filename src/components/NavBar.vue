@@ -86,7 +86,7 @@ const navegacion = ref([
   // { id: 3, nombre: "Experiencia", enlace: "#experiencia", iconSvg: svgIcons.briefcase },
   { id: 4, nombre: "Proyectos", enlace: "#proyectos", iconSvg: svgIcons.rocket },
   { id: 5, nombre: "Habilidades", enlace: "#habilidades", iconSvg: svgIcons.bolt },
-  { id: 6, nombre: "Intereses", enlace: "#intereses", iconSvg: svgIcons.heart }
+  // { id: 6, nombre: "Intereses", enlace: "#intereses", iconSvg: svgIcons.heart }
 ]);
 
 // Estados reactivos

@@ -6,7 +6,7 @@ import Educacion from './components/EducacionComponente.vue';
 // import ExperienciaComponente from './components/ExperienciaComponente.vue';
 import ProyectosComponente from './components/ProyectosComponente.vue';
 import HabilidadesComponente from './components/HabilidadesComponente.vue';
-import InteresesComponente from './components/InteresesComponente.vue';
+// import InteresesComponente from './components/InteresesComponente.vue';
 import Chatbot from './components/Chatbot.vue';
 // import ContactoComponente from './components/ContactoComponente.vue';
 
@@ -161,7 +161,7 @@ onUnmounted(() => {
       </section>
 
       <!-- Sección de Intereses -->
-      <section 
+      <!-- <section 
         id="intereses" 
         class="content-section"
         data-section="intereses"
@@ -180,7 +180,7 @@ onUnmounted(() => {
           </div>
           <InteresesComponente />
         </div>
-      </section>
+      </section> -->
 
       <!-- Sección de Contacto -->
       <!-- <section 
