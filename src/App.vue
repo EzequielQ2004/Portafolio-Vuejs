@@ -254,10 +254,10 @@ onUnmounted(() => {
               <ul>
                 <li><a href="#inicio" @click.prevent="scrollToTop">Inicio</a></li>
                 <li><a href="#educacion">Educación</a></li>
-                <li><a href="#experiencia">Experiencia</a></li>
+                <!-- <li><a href="#experiencia">Experiencia</a></li> -->
                 <li><a href="#proyectos">Proyectos</a></li>
                 <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#intereses">Intereses</a></li>
+                <!-- <li><a href="#intereses">Intereses</a></li> -->
               </ul>
             </div>
             <div class="links-column">

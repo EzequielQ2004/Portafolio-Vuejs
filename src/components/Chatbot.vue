@@ -33,7 +33,7 @@ const options = {
       // { text: "💼 Experiencia - Trayectoria profesional", action: "scroll:experiencia" },
       { text: "🚀 Proyectos - Trabajos realizados", action: "scroll:proyectos" },
       { text: "⚡ Habilidades - Conocimientos técnicos", action: "scroll:habilidades" },
-      { text: "❤️ Intereses - Pasiones personales", action: "scroll:intereses" },
+      // { text: "❤️ Intereses - Pasiones personales", action: "scroll:intereses" },
       { text: "🔙 Volver al menú", action: "menu" }
     ]
   },
@@ -181,7 +181,7 @@ function getSectionName(sectionId) {
     // 'experiencia': 'Experiencia',
     'proyectos': 'Proyectos',
     'habilidades': 'Habilidades',
-    'intereses': 'Intereses'
+    // 'intereses': 'Intereses'
   };
   return names[sectionId] || sectionId;
 }
@@ -217,7 +217,7 @@ function showDetails(section) {
     'experiencia': '💼 Experiencia detallada:\n\nFerretería San Francisco (Pasantía):\n• Desarrollo de funcionalidades backend\n• Trabajo colaborativo con equipo remoto\n• Implementación de soluciones técnicas\n\nProyectos Universitarios:\n• Metodologías ágiles (Scrum)\n• Control de versiones con Git\n• Desarrollo de software completo',
     'proyectos': '🚀 Proyectos detallados:\n\n1. Capybara Films:\n   - Sistema de gestión para videoclub\n   - Tecnologías: Java, Swing, MySQL\n   - Trabajo en equipo universitario\n\n2. CapyGaming:\n   - E-commerce para productos gamers\n   - Frontend: HTML, CSS, JavaScript\n   - Diseño responsive y funcional\n\n3. Portafolio Web:\n   - Sitio personal desarrollado en Vue.js\n   - Diseño moderno y responsive\n   - Implementación de chatbot',
     'habilidades': '⚡ Habilidades detalladas:\n\nFrontend:\n• JavaScript (Intermedio)\n• Vue.js (Intermedio-Avanzado)\n• HTML5/CSS3 (Avanzado)\n• React (Básico-Intermedio)\n\nBackend:\n• Java (Intermedio)\n• Python (Básico)\n• Node.js (Básico)\n\nBases de Datos:\n• MySQL (Intermedio)\n• PostgreSQL (Básico)\n• MongoDB (Básico)\n\nHerramientas:\n• Git/GitHub (Intermedio)\n• VS Code (Avanzado)',
-    'intereses': '❤️ Intereses personales:\n\n• 🏋️‍♂️ Entrenamiento físico en casa\n   - Calistenia y ejercicios con peso\n   - Disciplina y constancia\n\n• 📚 Lectura y aprendizaje\n   - Artículos científicos y tecnológicos\n   - Libros de desarrollo personal\n\n• 🎵 Música y entretenimiento\n   - Variedad de géneros musicales\n   - Películas y series inspiradoras\n\n• 🔧 Exploración tecnológica\n   - Nuevas herramientas de desarrollo\n   - Videojuegos que desafían la lógica'
+    // 'intereses': '❤️ Intereses personales:\n\n• 🏋️‍♂️ Entrenamiento físico en casa\n   - Calistenia y ejercicios con peso\n   - Disciplina y constancia\n\n• 📚 Lectura y aprendizaje\n   - Artículos científicos y tecnológicos\n   - Libros de desarrollo personal\n\n• 🎵 Música y entretenimiento\n   - Variedad de géneros musicales\n   - Películas y series inspiradoras\n\n• 🔧 Exploración tecnológica\n   - Nuevas herramientas de desarrollo\n   - Videojuegos que desafían la lógica'
   };
   
   if (details[section]) {
