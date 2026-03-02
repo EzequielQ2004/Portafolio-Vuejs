@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, nextTick } from 'vue';
 import linkedin from '/src/assets/linkedin_icon.svg';
 import github from '/src/assets/github_icon.svg';
 import cv from '/src/assets/cv_resume_icon.svg';
@@ -16,13 +17,36 @@ const redesSociales = [
   { id: 3, name: 'Currículum', src: cv, url: cvPdf, download: true, filename: 'CV-Ezequiel-Quiroz.pdf' },
 ];
 const telefono = '+54 2604-005223';
+
+// Animación de entrada
+onMounted(() => {
+  // Esperar a que el DOM esté completamente renderizado
+  nextTick(() => {
+    // Iniciar animaciones inmediatamente cuando el componente esté visible
+    setTimeout(() => {
+      const container = document.querySelector('.datos-personales-container');
+      if (container) {
+        container.classList.add('animate');
+      }
+      
+      // Animar elementos con delays
+      const elements = document.querySelectorAll('.animate-element');
+      elements.forEach((element) => {
+        const delay = element.getAttribute('data-delay') || '0';
+        setTimeout(() => {
+          element.classList.add('animate');
+        }, parseInt(delay));
+      });
+    }, 100); // Reducir el delay inicial
+  });
+});
 </script>
 
 <template>
-  <div class="datos-personales-container">
+  <div class="datos-personales-container animate-in">
     <div class="contenido-wrapper">
       <!-- Foto de perfil -->
-      <div class="foto-perfil-section">
+      <div class="foto-perfil-section animate-element" data-delay="0">
         <!-- Aquí va tu imagen de perfil -->
         <img 
           :src="fotoPerfil" 
@@ -32,15 +56,15 @@ const telefono = '+54 2604-005223';
       </div>
 
       <!-- Textos e información -->
-      <div class="info-section">
+      <div class="info-section animate-element" data-delay="200">
         <div class="info-content">
-          <h1 class="title">{{ title }}</h1>
-          <h2 class="subtitle">{{ subtitle }}</h2>
-          <p class="descripcion">{{ descripcion }}</p>
-          <p class="presentacion">{{ presentacion }}</p>
+          <h1 class="title animate-element" data-delay="300">{{ title }}</h1>
+          <h2 class="subtitle animate-element" data-delay="400">{{ subtitle }}</h2>
+          <p class="descripcion animate-element" data-delay="500">{{ descripcion }}</p>
+          <p class="presentacion animate-element" data-delay="600">{{ presentacion }}</p>
 
-          <ul class="redes-sociales">
-            <li v-for="red in redesSociales" :key="red.id">
+          <ul class="redes-sociales animate-element" data-delay="700">
+            <li v-for="red in redesSociales" :key="red.id" class="animate-element" :data-delay="800 + (red.id * 100)">
               <a
                 :href="red.url"
                 :target="red.download ? null : '_blank'"
@@ -52,10 +76,10 @@ const telefono = '+54 2604-005223';
             </li>
           </ul>
 
-          <p class="contacto">
-            <strong>📞 Teléfono:</strong> {{ telefono }}
+          <p class="contacto animate-element" data-delay="1100">
+            <strong> Teléfono:</strong> {{ telefono }}
           </p>
-          <p class="residencia">{{ residencia }}</p>
+          <p class="residencia animate-element" data-delay="1200">{{ residencia }}</p>
         </div>
       </div>
     </div>
@@ -299,6 +323,136 @@ const telefono = '+54 2604-005223';
   .icon-redsocial {
     width: 18px;
     height: 18px;
+  }
+}
+
+/* Animaciones de entrada profesionales */
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.animate-in.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-element.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fallback: asegurar que el contenido sea visible después de 3 segundos */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-in,
+  .animate-element {
+    animation: forceVisible 3s forwards;
+  }
+}
+
+@keyframes forceVisible {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animaciones específicas para diferentes elementos */
+.foto-perfil-section.animate-element {
+  transition-delay: 0ms;
+}
+
+.foto-perfil-section.animate-element.animate {
+  transform: translateY(0) scale(1);
+}
+
+.title.animate-element {
+  transition-delay: 300ms;
+}
+
+.subtitle.animate-element {
+  transition-delay: 400ms;
+}
+
+.descripcion.animate-element {
+  transition-delay: 500ms;
+}
+
+.presentacion.animate-element {
+  transition-delay: 600ms;
+}
+
+.redes-sociales.animate-element {
+  transition-delay: 700ms;
+}
+
+.redes-sociales li.animate-element {
+  transition-delay: calc(800ms + var(--item-index, 0) * 100ms);
+}
+
+.contacto.animate-element {
+  transition-delay: 1100ms;
+}
+
+.residencia.animate-element {
+  transition-delay: 1200ms;
+}
+
+/* Efecto de revelado para el texto */
+.title.animate-element.animate,
+.subtitle.animate-element.animate {
+  animation: revealText 0.8s ease-out forwards;
+}
+
+@keyframes revealText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Efecto de entrada suave para la foto */
+.foto-perfil-section.animate-element.animate {
+  animation: photoEntrance 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes photoEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Efecto de entrada para los iconos sociales */
+.redes-sociales li.animate-element.animate {
+  animation: iconBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes iconBounce {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 </style>
