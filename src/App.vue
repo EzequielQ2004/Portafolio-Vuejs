@@ -371,7 +371,7 @@ main {
 
 /* Header Principal */
 .main-header {
-  padding: 80px 2rem 3rem;
+  padding: 120px 2rem 3rem;
   background: #0f172a;
 }
 
@@ -749,7 +749,7 @@ section {
 
 @media (max-width: 768px) {
   .main-header {
-    padding: 60px 1rem 3rem;
+    padding: 100px 1rem 3rem;
   }
   
   .content-section {
