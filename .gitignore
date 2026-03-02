@@ -33,6 +33,7 @@ coverage
 .netlify
 
 # Seguridad - Variables de entorno
+.env
 .env.local
 .env.*.local
 .env.production
