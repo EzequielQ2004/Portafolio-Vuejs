@@ -716,7 +716,12 @@ section {
 
 @media (max-width: 768px) {
   .content-section {
-    padding: 3rem 1rem;
+    padding: 3rem 0;
+  }
+  
+  .section-container {
+    max-width: 100%;
+    padding: 0;
   }
   
   .section-title {

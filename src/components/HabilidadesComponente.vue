@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 import img1 from '/src/components/icons/js.svg';
 import img2 from '/src/components/icons/python.svg';
@@ -77,10 +77,13 @@ const habilidades = ref([
 const filtros = ref(['Todos', 'Frontend', 'Backend', 'Herramientas', 'Idiomas']);
 const filtroActivo = ref('Todos');
 const habilidadSeleccionada = ref(null);
+const carruselRef = ref(null);
+const currentSlide = ref(0);
 
 // Filtrar habilidades por categoría
 function filtrarHabilidades(categoria) {
     filtroActivo.value = categoria;
+    currentSlide.value = 0;
 }
 
 // Mostrar detalles de habilidad
@@ -110,6 +113,20 @@ const habilidadesFiltradas = computed(() => {
     return habilidades.value.filter(cat => categoriasIds.includes(cat.id));
 });
 
+const totalSlides = computed(() => habilidadesFiltradas.value.length);
+
+function updateCurrentSlide() {
+    if (carruselRef.value) {
+        const scrollLeft = carruselRef.value.scrollLeft;
+        const containerWidth = carruselRef.value.offsetWidth;
+        const cardWidth = containerWidth * 0.85 + 16; // 85vw + gap
+        currentSlide.value = Math.min(
+            Math.round(scrollLeft / cardWidth),
+            totalSlides.value - 1
+        );
+    }
+}
+
 // Obtener nivel como texto
 function obtenerNivelTexto(nivel) {
     if (nivel >= 80) return 'Avanzado';
@@ -125,6 +142,18 @@ function obtenerColorNivel(nivel) {
     if (nivel >= 40) return '#f59e0b'; // Amarillo
     return '#ef4444'; // Rojo
 }
+
+onMounted(() => {
+    if (carruselRef.value) {
+        carruselRef.value.addEventListener('scroll', updateCurrentSlide);
+    }
+});
+
+onUnmounted(() => {
+    if (carruselRef.value) {
+        carruselRef.value.removeEventListener('scroll', updateCurrentSlide);
+    }
+});
 </script>
 
 <template>
@@ -150,7 +179,7 @@ function obtenerColorNivel(nivel) {
             </div>
 
             <!-- Categorías de Habilidades -->
-            <div class="categorias-grid">
+            <div class="categorias-grid" ref="carruselRef">
                 <div 
                     v-for="categoria in habilidadesFiltradas" 
                     :key="categoria.id"
@@ -195,6 +224,16 @@ function obtenerColorNivel(nivel) {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Indicador de scroll -->
+            <div class="scroll-indicator" v-if="totalSlides > 1">
+                <span 
+                    v-for="(slide, index) in totalSlides" 
+                    :key="index"
+                    class="scroll-dot"
+                    :class="{ active: currentSlide === index }"
+                ></span>
             </div>
 
             <!-- Modal de Detalles -->
@@ -283,23 +322,13 @@ function obtenerColorNivel(nivel) {
 <style scoped>
 .habilidades-section {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: transparent;
     position: relative;
-    overflow: hidden;
-}
-
-.habilidades-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 100%;
+    padding: 0 0.5rem;
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -396,8 +425,35 @@ function obtenerColorNivel(nivel) {
     margin-bottom: 4rem;
 }
 
+/* Carrusel para móviles */
+@media (max-width: 768px) {
+    .categorias-grid {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .categorias-grid::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .categoria-card {
+        min-width: 85vw;
+        scroll-snap-align: center;
+    }
+}
+
 .categoria-card {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+    background: transparent;
     border-radius: 20px;
     padding: 2rem;
     border: 1px solid rgba(139, 92, 246, 0.2);
@@ -794,29 +850,56 @@ function obtenerColorNivel(nivel) {
     margin-top: 0.3rem;
 }
 
+/* Indicador de scroll */
+.scroll-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.scroll-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.scroll-dot.active {
+    background: #8b5cf6;
+    transform: scale(1.3);
+}
+
+.scroll-dot:hover:not(.active) {
+    background: rgba(139, 92, 246, 0.5);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .habilidades-section {
-        padding: 3rem 1rem;
+        padding: 3rem 0;
+    }
+    
+    .container {
+        padding: 0;
     }
     
     .section-title {
         font-size: 2.2rem;
     }
     
-    .categorias-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+    /* El carrusel ya está definido arriba, no sobreescribir */
     
     .filtros-container {
-        padding: 1rem;
-        gap: 0.8rem;
+        padding: 1rem 0;
+        gap: 0.5rem;
     }
     
     .filtro-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
     }
     
     .categoria-card {
@@ -833,6 +916,37 @@ function obtenerColorNivel(nivel) {
         text-align: center;
         gap: 1rem;
     }
+    
+    /* Estadísticas en horizontal */
+    .estadisticas-habilidades {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.3rem;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .estadistica-item {
+        flex: 1;
+        padding: 0.5rem 0.3rem;
+        min-width: 0;
+    }
+    
+    .estadistica-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1.2rem;
+    }
+    
+    .estadistica-numero {
+        font-size: 1.1rem;
+    }
+    
+    .estadistica-texto {
+        font-size: 0.65rem;
+        white-space: nowrap;
+    }
 }
 
 @media (max-width: 480px) {
@@ -841,7 +955,29 @@ function obtenerColorNivel(nivel) {
     }
     
     .estadisticas-habilidades {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .estadistica-item {
+        padding: 0.4rem 0.2rem;
+    }
+    
+    .estadistica-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+    
+    .estadistica-numero {
+        font-size: 1rem;
+    }
+    
+    .estadistica-texto {
+        font-size: 0.6rem;
     }
     
     .habilidad-item {
