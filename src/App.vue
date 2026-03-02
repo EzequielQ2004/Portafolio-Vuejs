@@ -79,11 +79,11 @@ onUnmounted(() => {
     <!-- Chatbot flotante - visible en todo el portafolio -->
     <Chatbot />
 
+    <!-- Navegación - visible en todo el portafolio -->
+    <NavBar />
+
     <!-- Contenido Principal (solo visible cuando no está cargando) -->
     <div class="main-content-wrapper" :class="{ 'content-hidden': isLoading }">
-      <!-- Navegación -->
-      <NavBar />
-      
       <!-- Header Principal -->
       <header class="main-header" id="inicio">
         <DatosPersonales />

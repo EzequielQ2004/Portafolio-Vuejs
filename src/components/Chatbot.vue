@@ -488,7 +488,7 @@ function autoResize(event) {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  z-index: 10000; /* Increased z-index */
+  z-index: 10002; /* Higher than navbar */
   border: 1px solid rgba(79, 70, 229, 0.3);
   overflow: hidden;
   animation: slideUp 0.3s ease;
