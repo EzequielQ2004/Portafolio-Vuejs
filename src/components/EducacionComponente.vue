@@ -1,10 +1,18 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 import iconUtn from '/src/assets/utn-icon.svg';
 import iconAgro from '/src/assets/agro-icon.svg';
 import iconCertificado from '/src/assets/certificate-icon.svg';
 import cvPdf from '/src/assets/cv.pdf';
+
+// Estado para el carrusel móvil
+const currentIndex = ref(0);
+const isMobile = ref(false);
+const carouselRef = ref(null);
+const startX = ref(0);
+const isDragging = ref(false);
+const scrollLeft = ref(0);
 
 const educacion = ref([
   { 
@@ -15,7 +23,7 @@ const educacion = ref([
     descripcion: 'Formación especializada en desarrollo y análisis de sistemas informáticos, programación avanzada, bases de datos, y operación de computadoras. Enfoque práctico en tecnologías modernas.',
     enlace: 'https://www.utn.edu.ar/',
     icono: iconUtn,
-    materias: ['Arquitectura y Sistemas Operativos', 'Matemática', '	Organización Empresarial', 'Programación', 'Base de Datos'],
+    // materias: ['Arquitectura y Sistemas Operativos', 'Matemática', '	Organización Empresarial', 'Programación', 'Base de Datos'],
     estado: 'En curso',
     destacado: ['Capacitación técnica especializada', 'Proyectos prácticos en equipo', 'Metodologías de desarrollo']
   },
@@ -27,7 +35,7 @@ const educacion = ref([
     descripcion: 'Formación técnica especializada en producción agropecuaria con énfasis en frutales y hortalizas. Desarrollo de habilidades técnicas, de gestión y resolución de problemas.',
     enlace: 'https://dti.mendoza.edu.ar/gem/ingreso/publico/escuela/1031/3',
     icono: iconAgro,
-    materias: ['Producción Vegetal', 'Enología', 'Producción Animal', 'Suelos y Riego'],
+    // materias: ['Producción Vegetal', 'Enología', 'Producción Animal', 'Suelos y Riego'],
     estado: 'Completado',
     destacado: ['Formación técnica integral', 'Trabajo en entornos productivos', 'Desarrollo de proyectos prácticos']
   }
@@ -60,6 +68,107 @@ const obtenerEstadoClase = (estado) => {
   return estado === 'En curso' ? 'en-curso' : 'completado';
 };
 
+// Computed para el carrusel
+const canGoPrev = computed(() => currentIndex.value > 0);
+const canGoNext = computed(() => currentIndex.value < educacion.value.length - 1);
+
+// Métodos del carrusel
+const goToSlide = (index) => {
+  currentIndex.value = index;
+  scrollToSlide(index);
+};
+
+const nextSlide = () => {
+  if (canGoNext.value) {
+    currentIndex.value++;
+    scrollToSlide(currentIndex.value);
+  }
+};
+
+const prevSlide = () => {
+  if (canGoPrev.value) {
+    currentIndex.value--;
+    scrollToSlide(currentIndex.value);
+  }
+};
+
+const scrollToSlide = (index) => {
+  if (carouselRef.value) {
+    const slideWidth = carouselRef.value.children[0].offsetWidth;
+    const gap = 16; // Espacio entre slides
+    const scrollPosition = index * (slideWidth + gap);
+    carouselRef.value.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth'
+    });
+  }
+};
+
+// Touch/Swipe handlers
+const handleTouchStart = (e) => {
+  if (!isMobile.value) return;
+  isDragging.value = true;
+  startX.value = e.pageX - carouselRef.value.offsetLeft;
+  scrollLeft.value = carouselRef.value.scrollLeft;
+  carouselRef.value.style.cursor = 'grabbing';
+};
+
+const handleTouchMove = (e) => {
+  if (!isDragging.value || !isMobile.value) return;
+  e.preventDefault();
+  const x = e.pageX - carouselRef.value.offsetLeft;
+  const walk = (x - startX.value) * 2;
+  carouselRef.value.scrollLeft = scrollLeft.value - walk;
+};
+
+const handleTouchEnd = () => {
+  if (!isDragging.value) return;
+  isDragging.value = false;
+  carouselRef.value.style.cursor = 'grab';
+  
+  // Snap al slide más cercano
+  if (carouselRef.value) {
+    const slideWidth = carouselRef.value.children[0].offsetWidth;
+    const gap = 16;
+    const scrollPosition = carouselRef.value.scrollLeft;
+    const newIndex = Math.round(scrollPosition / (slideWidth + gap));
+    
+    if (newIndex >= 0 && newIndex < educacion.value.length) {
+      currentIndex.value = newIndex;
+      scrollToSlide(newIndex);
+    }
+  }
+};
+
+// Scroll handler for indicators
+const handleScroll = () => {
+  if (!carouselRef.value || !isMobile.value) return;
+  
+  const slideWidth = carouselRef.value.children[0].offsetWidth;
+  const gap = 16;
+  const scrollPosition = carouselRef.value.scrollLeft;
+  const newIndex = Math.round(scrollPosition / (slideWidth + gap));
+  
+  if (newIndex >= 0 && newIndex < educacion.value.length && newIndex !== currentIndex.value) {
+    currentIndex.value = newIndex;
+  }
+};
+
+// Detectar si es móvil
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+// Lifecycle
+onMounted(() => {
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile);
+});
+
 // Animación para los elementos
 const animarElemento = (elemento) => {
   elemento.style.opacity = '1';
@@ -76,8 +185,8 @@ const animarElemento = (elemento) => {
         <p class="section-subtitle">Una trayectoria de aprendizaje constante y desarrollo profesional</p>
       </div> -->
 
-      <!-- Timeline Principal -->
-      <div class="timeline-container">
+      <!-- Timeline Principal - Desktop Version -->
+      <div class="timeline-container desktop-timeline">
         <div class="timeline-line"></div>
         
         <div 
@@ -109,8 +218,8 @@ const animarElemento = (elemento) => {
               <div class="educacion-body">
                 <p class="educacion-descripcion">{{ item.descripcion }}</p>
                 
-                <div class="educacion-detalles">
-                  <div class="materias-container">
+                <!-- <div class="educacion-detalles">
+                   <div class="materias-container">
                     <h4>Materias Destacadas:</h4>
                     <div class="materias-grid">
                       <span 
@@ -120,8 +229,8 @@ const animarElemento = (elemento) => {
                       >
                         {{ materia }}
                       </span>
-                    </div>
-                  </div>
+                    </div> 
+                  </div> -->
 
                   <div class="destacado-container">
                     <h4>Puntos Clave:</h4>
@@ -133,7 +242,6 @@ const animarElemento = (elemento) => {
                     </ul>
                   </div>
                 </div>
-              </div>
 
               <div class="educacion-footer">
                 <a 
@@ -145,6 +253,109 @@ const animarElemento = (elemento) => {
                   <span class="btn-icon">🌐</span>
                   Visitar Institución
                 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Carousel Version -->
+      <div class="mobile-carousel" v-if="isMobile">
+        <!-- Navigation Controls -->
+        <div class="carousel-controls">
+          <button 
+            @click="prevSlide" 
+            class="carousel-btn prev-btn"
+            :disabled="!canGoPrev"
+            aria-label="Anterior"
+          >
+            <span class="btn-arrow">‹</span>
+          </button>
+          
+          <div class="carousel-indicators">
+            <button 
+              v-for="(item, index) in educacion" 
+              :key="index"
+              @click="goToSlide(index)"
+              class="indicator-dot"
+              :class="{ active: currentIndex === index }"
+              :aria-label="`Ir a slide ${index + 1}`"
+            ></button>
+          </div>
+          
+          <button 
+            @click="nextSlide" 
+            class="carousel-btn next-btn"
+            :disabled="!canGoNext"
+            aria-label="Siguiente"
+          >
+            <span class="btn-arrow">›</span>
+          </button>
+        </div>
+
+        <!-- Carousel Container -->
+        <div 
+          class="carousel-container"
+          ref="carouselRef"
+          @mousedown="handleTouchStart"
+          @mousemove="handleTouchMove"
+          @mouseup="handleTouchEnd"
+          @mouseleave="handleTouchEnd"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+          @scroll="handleScroll"
+        >
+          <div 
+            v-for="(item, index) in educacion" 
+            :key="item.id"
+            class="carousel-slide"
+            :style="{ '--item-index': index }"
+          >
+            <div class="carousel-marker">
+              <div class="marker-circle" :class="obtenerEstadoClase(item.estado)">
+                <img :src="item.icono" :alt="item.institucion" class="marker-icon">
+              </div>
+              <span class="carousel-date">{{ item.fecha }}</span>
+            </div>
+
+            <div class="carousel-content">
+              <div class="educacion-card">
+                <div class="educacion-header">
+                  <div class="educacion-titulo-container">
+                    <h3 class="educacion-titulo">{{ item.title }}</h3>
+                    <span class="educacion-estado" :class="obtenerEstadoClase(item.estado)">
+                      {{ item.estado }}
+                    </span>
+                  </div>
+                  <p class="educacion-institucion">{{ item.institucion }}</p>
+                </div>
+
+                <div class="educacion-body">
+                  <p class="educacion-descripcion">{{ item.descripcion }}</p>
+                  
+                  <div class="destacado-container">
+                    <h4>Puntos Clave:</h4>
+                    <ul class="destacado-list">
+                      <li v-for="(punto, idx) in item.destacado" :key="idx">
+                        <span class="check-icon">✓</span>
+                        {{ punto }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="educacion-footer">
+                  <a 
+                    :href="item.enlace" 
+                    class="btn-institucion"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span class="btn-icon">🌐</span>
+                    Visitar Institución
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -169,7 +380,7 @@ const animarElemento = (elemento) => {
             </ul>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- Certificaciones -->
       <!-- <div class="certificaciones-section" v-if="certificaciones.length > 0">
@@ -335,6 +546,9 @@ const animarElemento = (elemento) => {
   border: 4px solid #0f172a;
   box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+  margin-top: 10px; /* Add space to prevent shadow clipping */
 }
 
 .marker-circle.en-curso {
@@ -387,12 +601,13 @@ const animarElemento = (elemento) => {
 .educacion-card {
   background: #0f172a;
   border-radius: 20px;
-  padding: 2rem;
+  padding: 1.5rem;
   border: 1px solid rgba(16, 185, 129, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  margin: 0;
 }
 
 .educacion-card::before {
@@ -860,6 +1075,270 @@ const animarElemento = (elemento) => {
   .timeline-marker {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+/* Mobile Carousel Styles */
+.mobile-carousel {
+  display: none;
+  padding: 2rem 0;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.carousel-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
+  transform: scale(1.1);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.btn-arrow {
+  font-weight: bold;
+  line-height: 1;
+}
+
+.carousel-indicators {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator-dot.active {
+  background: #10b981;
+  transform: scale(1.2);
+}
+
+.indicator-dot:hover {
+  background: rgba(16, 185, 129, 0.6);
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 0 1rem;
+  cursor: grab;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.carousel-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.5);
+  border-radius: 2px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.7);
+}
+
+.carousel-slide {
+  flex: 0 0 auto;
+  width: calc(100vw - 6rem);
+  max-width: 350px;
+  scroll-snap-align: start;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: calc(var(--item-index, 0) * 0.1s);
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}
+
+.carousel-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.carousel-date {
+  margin-top: 0.8rem;
+  padding: 0.4rem 1.2rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.carousel-content {
+  width: 100%;
+}
+
+/* Mobile carousel card adjustments */
+.mobile-carousel .educacion-card {
+  padding: 1.2rem;
+  margin: 0;
+}
+
+.mobile-carousel .educacion-header {
+  margin-bottom: 1rem;
+}
+
+.mobile-carousel .educacion-titulo {
+  font-size: 1.3rem;
+}
+
+.mobile-carousel .educacion-institucion {
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.mobile-carousel .educacion-descripcion {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.mobile-carousel .educacion-footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+}
+
+.mobile-carousel .btn-institucion {
+  width: 100%;
+  justify-content: center;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* Remove shadow on mobile marker circles to prevent clipping */
+.mobile-carousel .marker-circle {
+  box-shadow: none !important;
+  margin-top: 0;
+}
+
+.mobile-carousel .marker-circle:hover {
+  box-shadow: none !important;
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+  /* Hide desktop timeline, show mobile carousel */
+  .desktop-timeline {
+    display: none;
+  }
+  
+  .mobile-carousel {
+    display: block;
+  }
+  
+  .educacion-section {
+    padding: 2rem 1rem;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .educacion-detalles {
+    grid-template-columns: 1fr;
+  }
+  
+  .habilidades-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .certificaciones-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .educacion-cta {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-slide {
+    width: calc(100vw - 3rem);
+    max-width: 320px;
+  }
+  
+  .carousel-controls {
+    padding: 0 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .educacion-card {
+    padding: 1.5rem;
+  }
+  
+  .materias-grid {
+    flex-direction: column;
+  }
+  
+  .mobile-carousel .educacion-card {
+    padding: 1rem;
+  }
+  
+  .mobile-carousel .educacion-titulo {
+    font-size: 1.2rem;
+  }
+  
+  .mobile-carousel .educacion-institucion {
+    font-size: 0.9rem;
+  }
+  
+  .mobile-carousel .educacion-descripcion {
+    font-size: 0.85rem;
+  }
+  
+  .mobile-carousel .btn-institucion {
+    font-size: 0.8rem;
+    padding: 0.7rem 0.8rem;
   }
 }
 </style>
