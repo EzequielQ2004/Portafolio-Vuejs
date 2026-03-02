@@ -97,10 +97,12 @@ const scrollToSlide = (index) => {
     const slideWidth = carouselRef.value.children[0].offsetWidth;
     const gap = 16; // Espacio entre slides
     const scrollPosition = index * (slideWidth + gap);
-    carouselRef.value.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth'
-    });
+    
+    // Usar scroll directo para mejor compatibilidad móvil
+    carouselRef.value.scrollLeft = scrollPosition;
+    
+    // Actualizar índice actual
+    currentIndex.value = index;
   }
 };
 
@@ -108,15 +110,16 @@ const scrollToSlide = (index) => {
 const handleTouchStart = (e) => {
   if (!isMobile.value) return;
   isDragging.value = true;
-  startX.value = e.pageX - carouselRef.value.offsetLeft;
+  startX.value = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
   scrollLeft.value = carouselRef.value.scrollLeft;
   carouselRef.value.style.cursor = 'grabbing';
+  e.preventDefault();
 };
 
 const handleTouchMove = (e) => {
   if (!isDragging.value || !isMobile.value) return;
   e.preventDefault();
-  const x = e.pageX - carouselRef.value.offsetLeft;
+  const x = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
   const walk = (x - startX.value) * 2;
   carouselRef.value.scrollLeft = scrollLeft.value - walk;
 };
@@ -127,17 +130,19 @@ const handleTouchEnd = () => {
   carouselRef.value.style.cursor = 'grab';
   
   // Snap al slide más cercano
-  if (carouselRef.value) {
-    const slideWidth = carouselRef.value.children[0].offsetWidth;
-    const gap = 16;
-    const scrollPosition = carouselRef.value.scrollLeft;
-    const newIndex = Math.round(scrollPosition / (slideWidth + gap));
-    
-    if (newIndex >= 0 && newIndex < educacion.value.length) {
-      currentIndex.value = newIndex;
-      scrollToSlide(newIndex);
+  setTimeout(() => {
+    if (carouselRef.value) {
+      const slideWidth = carouselRef.value.children[0].offsetWidth;
+      const gap = 16;
+      const scrollPosition = carouselRef.value.scrollLeft;
+      const newIndex = Math.round(scrollPosition / (slideWidth + gap));
+      
+      if (newIndex >= 0 && newIndex < educacion.value.length) {
+        currentIndex.value = newIndex;
+        scrollToSlide(newIndex);
+      }
     }
-  }
+  }, 100);
 };
 
 // Scroll handler for indicators
@@ -163,6 +168,17 @@ const checkMobile = () => {
 onMounted(() => {
   checkMobile();
   window.addEventListener('resize', checkMobile);
+  
+  // Inicializar carrusel móvil
+  if (isMobile.value) {
+    setTimeout(() => {
+      if (carouselRef.value) {
+        // Asegurar que el carrusel esté en la posición inicial
+        carouselRef.value.scrollLeft = 0;
+        currentIndex.value = 0;
+      }
+    }, 100);
+  }
 });
 
 onUnmounted(() => {
@@ -1151,6 +1167,7 @@ const animarElemento = (elemento) => {
 .carousel-container {
   display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   gap: 1rem;
@@ -1158,6 +1175,8 @@ const animarElemento = (elemento) => {
   cursor: grab;
   user-select: none;
   -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .carousel-container::-webkit-scrollbar {
