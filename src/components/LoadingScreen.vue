@@ -10,12 +10,12 @@
       </div>
 
       <!-- Loading Animation -->
-      <div class="loading-animation">
+      <!-- <div class="loading-animation">
         <div class="loading-dots">
           <div class="dot" v-for="i in 3" :key="i"></div>
         </div>
         <div class="loading-text">Cargando...</div>
-      </div>
+      </div> -->
 
       <!-- Progress Bar -->
       <div class="progress-container">
