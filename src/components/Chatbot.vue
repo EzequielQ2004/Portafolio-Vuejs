@@ -116,7 +116,7 @@ const options = {
     options: initialMessage.options
   },
   projects: {
-    text: "Proyectos destacados:\n\n• Capybara Films - Sistema de gestión para videoclub (Java, MySQL)\n• CapyGaming - E-commerce de productos gamers (HTML/CSS/JS)\n• Portafolio Web - Este sitio desarrollado con Vue.js\n• Repositorio de ejercicios - Práctica de algoritmos y lógica",
+    text: "Proyectos destacados:\n\n• CapyGaming - E-commerce de productos gamers (HTML/CSS/JS)\n• Ferreteria San Francisco Web- Sitio para una ferreteria desarrollado con React\n• Juego del Impostor - Juego interactivo desarrollado con JavaScript",
     options: [
       { text: "Ver sección de proyectos", action: "scroll:proyectos", icon: TargetIcon },
       { text: "Ir a GitHub (ver código)", action: "link:github", icon: GithubIcon },
