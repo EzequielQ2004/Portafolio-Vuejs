@@ -47,7 +47,7 @@ const misProyectos = ref([
         src: adivinaLaBanderaWeb,
         titulo: "Adivina la Bandera",
         subtitulo: "Juego simple para entretener y aprender banderas directamente en tu navegador - ¡Sin instalaciones!",
-        descripcion: "El juego perimite elegir entre 3 niveles de difucultadad, cada uno con un número diferente de banderas a adivinar. ¡Pon a prueba tus conocimientos geográficos y diviértete adivinando banderas de todo el mundo!",
+        descripcion: "El juego permite elegir entre 3 niveles de difucultad, cada uno con un número diferente de banderas a adivinar. ¡Pon a prueba tus conocimientos geográficos y diviértete adivinando banderas de todo el mundo!",
         anio: "2026",
         tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
         proyectoLink: "https://ezequielq2004.github.io/AdivinaLaBanderaWeb/",
