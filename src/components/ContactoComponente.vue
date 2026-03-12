@@ -90,7 +90,7 @@
           <form 
             name="contacto" 
             method="POST" 
-            netlify
+            data-netlify="true"
             class="form-contacto"
             @submit.prevent="handleSubmit"
           >
