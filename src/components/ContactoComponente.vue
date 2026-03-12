@@ -88,7 +88,7 @@
         <!-- Formulario de contacto -->
         <div class="contacto-form">
           <form 
-            name="contacto" 
+            name="formulario" 
             method="POST" 
             data-netlify="true"
             class="form-contacto"
