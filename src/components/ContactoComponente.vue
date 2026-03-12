@@ -88,7 +88,7 @@
         <!-- Formulario de contacto -->
         <div class="contacto-form">
           <form 
-            name="formulario" 
+            name="contacto" 
             method="POST" 
             data-netlify="true"
             class="form-contacto"
@@ -284,9 +284,15 @@ async function handleSubmit(event) {
   isSubmitting.value = true;
 
   try {
-    // Netlify procesará el formulario automáticamente
-    // Simulamos el envío para la demostración
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Crear FormData para enviar a Netlify
+    const formData = new FormData(event.target);
+    
+    // Enviar a Netlify
+    await fetch('/', {
+      method: 'POST',
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString()
+    });
     
     // Mostrar mensaje de éxito
     showSuccess.value = true;
@@ -300,8 +306,8 @@ async function handleSubmit(event) {
     }, 5000);
     
   } catch (error) {
-    console.error('Error al enviar el formulario:', error);
-    alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+    console.error('Error al enviar formulario:', error);
+    alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
   } finally {
     isSubmitting.value = false;
   }
