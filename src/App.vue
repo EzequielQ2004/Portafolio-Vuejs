@@ -9,7 +9,7 @@ import ProyectosComponente from './components/ProyectosComponente.vue';
 import HabilidadesComponente from './components/HabilidadesComponente.vue';
 // import InteresesComponente from './components/InteresesComponente.vue';
 import Chatbot from './components/Chatbot.vue';
-// import ContactoComponente from './components/ContactoComponente.vue';
+import ContactoComponente from './components/ContactoComponente.vue';
 
 // Estado de carga
 const isLoading = ref(true);
@@ -202,56 +202,7 @@ onUnmounted(() => {
       </section> -->
 
       <!-- Sección de Contacto -->
-      <!-- <section 
-        id="contacto" 
-        class="content-section"
-        data-section="contacto"
-      >
-        <div class="section-container">
-          <div class="section-header">
-            <div class="section-decorator">
-              <span class="decorator-line"></span>
-              <h2 class="section-title">
-                <span class="title-icon">📧</span>
-                Contacto
-              </h2>
-              <span class="decorator-line"></span>
-            </div>
-            <p class="section-subtitle">¿Listo para colaborar? Hablemos</p>
-          </div>
-          <ContactoComponente v-if="false" /> 
-          <div class="contacto-placeholder">
-            <p>¿Interesado en trabajar juntos o conocerme mejor?</p>
-            <div class="contacto-actions">
-              <a 
-                href="https://www.linkedin.com/in/ezequielquiroz/" 
-                class="btn-contacto linkedin"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="btn-icon">👨‍💼</span>
-                LinkedIn
-              </a>
-              <a 
-                href="mailto:quirozarielezequiel@gmail.com" 
-                class="btn-contacto email"
-              >
-                <span class="btn-icon">📧</span>
-                Email
-              </a>
-              <a 
-                href="https://github.com/EzequielQ2004" 
-                class="btn-contacto github"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="btn-icon">🐙</span>
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </section> -->
+      <ContactoComponente />
     </main>
 
     <!-- Footer -->
@@ -276,6 +227,7 @@ onUnmounted(() => {
                 <!-- <li><a href="#experiencia">Experiencia</a></li> -->
                 <li><a href="#proyectos">Proyectos</a></li>
                 <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#contacto">Contacto</a></li>
                 <!-- <li><a href="#intereses">Intereses</a></li> -->
               </ul>
             </div>
@@ -283,6 +235,7 @@ onUnmounted(() => {
               <h4>Contacto</h4>
               <ul>
                 <li><a href="mailto:quirozarielezequiel@gmail.com">Email</a></li>
+                <li><a href="https://wa.me/542604005223" target="_blank">WhatsApp</a></li>
                 <li><a href="https://www.linkedin.com/in/ezequielquiroz/" target="_blank">LinkedIn</a></li>
                 <li><a href="https://github.com/EzequielQ2004" target="_blank">GitHub</a></li>
                 <li><a href="https://ezequielquiroz-portafolio.netlify.app/" target="_blank">Portafolio</a></li>
