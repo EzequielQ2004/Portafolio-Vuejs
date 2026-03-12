@@ -90,10 +90,9 @@
           <form 
             name="contacto" 
             method="POST" 
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
-            @submit="handleSubmit"
+            netlify
             class="form-contacto"
+            @submit.prevent="handleSubmit"
           >
             <!-- Campo honeypot para spam -->
             <input type="hidden" name="bot-field" />
