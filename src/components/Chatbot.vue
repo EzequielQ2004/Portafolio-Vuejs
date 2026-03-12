@@ -102,15 +102,22 @@ const options = {
     ]
   },
   contact: {
-    text: "Contacto:\n• Email: quirozarielezequiel@gmail.com\n• Teléfono: +54 2604-005223\n• LinkedIn: linkedin.com/in/ezequielquiroz\n• GitHub: github.com/EzequielQ2004\n• Portafolio: ezequielquiroz-portafolio.netlify.app",
+    text: "¿Cómo prefieres contactarme?",
     options: [
-      { text: "Copiar email", action: "copy:email", icon: EmailIcon },
-      { text: "Ir a GitHub", action: "link:github", icon: GithubIcon },
-      { text: "Ir a LinkedIn", action: "link:linkedin", icon: ContactIcon },
-      { text: "Menú principal", action: "menu", icon: BackIcon }
+      { text: "📱 Hablar por WhatsApp", action: "link:whatsapp", icon: "📱" },
+      { text: "📧 Usar formulario de contacto", action: "scroll:contacto", icon: "📧" },
+      { text: "📋 Ver información de contacto", action: "show:contact-info", icon: "📋" },
+      { text: "🔙 Volver al menú", action: "menu", icon: "🔙" }
     ]
   },
-
+  contact_info: {
+    text: "📋 Mi información de contacto:\n\n• 📧 Email: quirozarielezequiel@gmail.com\n• 📱 WhatsApp: +54 2604-005223\n• 💼 LinkedIn: linkedin.com/in/ezequielquiroz\n• 💻 GitHub: github.com/EzequielQ2004\n• 🌐 Portafolio: ezequielquiroz-portafolio.netlify.app\n\n• 📧 Para consultas rápidas: WhatsApp\n• 📋 Para proyectos detallados: Formulario\n• 💼 Para oportunidades laborales: LinkedIn",
+    options: [
+      { text: "📱 Ir a WhatsApp", action: "link:whatsapp", icon: "📱" },
+      { text: "📧 Ir al formulario", action: "scroll:contacto", icon: "📧" },
+      { text: "🔙 Volver al menú", action: "menu", icon: "🔙" }
+    ]
+  },
   menu: {
     text: "Menú principal: ¿En qué puedo ayudarte?",
     options: initialMessage.options
@@ -164,7 +171,8 @@ function handleOption(option) {
       
     case 'link':
       openLink(value);
-      addBotMessage(`Abriendo ${value === 'github' ? 'GitHub' : 'LinkedIn'} en una nueva pestaña...`);
+      const linkName = value === 'github' ? 'GitHub' : value === 'linkedin' ? 'LinkedIn' : 'WhatsApp';
+      addBotMessage(`Abriendo ${linkName} en una nueva pestaña...`);
       break;
       
     case 'copy':
@@ -220,7 +228,8 @@ function getSectionName(sectionId) {
 function openLink(type) {
   const links = {
     'github': 'https://github.com/EzequielQ2004',
-    'linkedin': 'https://www.linkedin.com/in/ezequielquiroz/'
+    'linkedin': 'https://www.linkedin.com/in/ezequielquiroz/',
+    'whatsapp': 'https://wa.me/542604005223'
   };
   
   if (links[type]) {
