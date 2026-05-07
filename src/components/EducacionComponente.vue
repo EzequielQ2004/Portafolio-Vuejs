@@ -1,10 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useI18n } from '../utils/i18n.js';
+
+const { t } = useI18n();
 
 import iconUtn from '/src/assets/utn-icon.svg';
 import iconAgro from '/src/assets/agro-icon.svg';
 import iconCertificado from '/src/assets/certificate-icon.svg';
-import cvPdf from '/src/assets/cv.pdf';
+const cvPdf = '/cv-ezequiel-quiroz.pdf';
 
 // Estado para el carrusel móvil
 const currentIndex = ref(0);
@@ -14,32 +17,17 @@ const startX = ref(0);
 const isDragging = ref(false);
 const scrollLeft = ref(0);
 
-const educacion = ref([
-  { 
-    id: 1,
-    fecha: '2024 - 2025', 
-    title: 'Técnicatura Universitaria en Programación', 
-    institucion: 'UTN San Rafael',
-    descripcion: 'Formación especializada en desarrollo y análisis de sistemas informáticos, programación avanzada, bases de datos, y operación de computadoras. Enfoque práctico en tecnologías modernas.',
-    enlace: 'https://www.utn.edu.ar/',
-    icono: iconUtn,
-    // materias: ['Arquitectura y Sistemas Operativos', 'Matemática', '	Organización Empresarial', 'Programación', 'Base de Datos'],
-    estado: 'En curso',
-    destacado: ['Capacitación técnica especializada', 'Proyectos prácticos en equipo', 'Metodologías de desarrollo']
-  },
-  { 
-    id: 2,
-    fecha: '2018 - 2023', 
-    title: 'Técnicatura Agropecuaria', 
-    institucion: 'Antonio Di Benedetto 4-043',
-    descripcion: 'Formación técnica especializada en producción agropecuaria con énfasis en frutales y hortalizas. Desarrollo de habilidades técnicas, de gestión y resolución de problemas.',
-    enlace: 'https://dti.mendoza.edu.ar/gem/ingreso/publico/escuela/1031/3',
-    icono: iconAgro,
-    // materias: ['Producción Vegetal', 'Enología', 'Producción Animal', 'Suelos y Riego'],
-    estado: 'Completado',
-    destacado: ['Formación técnica integral', 'Trabajo en entornos productivos', 'Desarrollo de proyectos prácticos']
-  }
-]);
+const educacionBase = [
+  { id: 1, enlace: 'https://www.utn.edu.ar/', icono: iconUtn },
+  { id: 2, enlace: 'https://dti.mendoza.edu.ar/gem/ingreso/publico/escuela/1031/3', icono: iconAgro }
+];
+
+const educacion = computed(() =>
+  educacionBase.map((base, i) => ({
+    ...base,
+    ...t('education.items')[i]
+  }))
+);
 
 const certificaciones = ref([
   {
@@ -64,8 +52,8 @@ const habilidadesDesarrolladas = ref([
 ]);
 
 // Computed para determinar el estado visual
-const obtenerEstadoClase = (estado) => {
-  return estado === 'En curso' ? 'en-curso' : 'completado';
+const obtenerEstadoClase = (item) => {
+  return item.activo ? 'en-curso' : 'completado';
 };
 
 // Computed para el carrusel
@@ -213,7 +201,7 @@ const animarElemento = (elemento) => {
           :style="{ '--item-index': index }"
         >
           <div class="timeline-marker">
-            <div class="marker-circle" :class="obtenerEstadoClase(item.estado)">
+            <div class="marker-circle" :class="obtenerEstadoClase(item)">
               <img :src="item.icono" :alt="item.institucion" class="marker-icon">
             </div>
             <span class="timeline-date">{{ item.fecha }}</span>
@@ -224,7 +212,7 @@ const animarElemento = (elemento) => {
               <div class="educacion-header">
                 <div class="educacion-titulo-container">
                   <h3 class="educacion-titulo">{{ item.title }}</h3>
-                  <span class="educacion-estado" :class="obtenerEstadoClase(item.estado)">
+                  <span class="educacion-estado" :class="obtenerEstadoClase(item)">
                     {{ item.estado }}
                   </span>
                 </div>
@@ -249,7 +237,7 @@ const animarElemento = (elemento) => {
                   </div> -->
 
                   <div class="destacado-container">
-                    <h4>Puntos Clave:</h4>
+                    <h4>{{ t('education.keyPoints') }}</h4>
                     <ul class="destacado-list">
                       <li v-for="(punto, idx) in item.destacado" :key="idx">
                         <span class="check-icon">✓</span>
@@ -267,7 +255,7 @@ const animarElemento = (elemento) => {
                   rel="noopener noreferrer"
                 >
                   <span class="btn-icon">🌐</span>
-                  Visitar Institución
+                  {{ t('education.visitInstitution') }}
                 </a>
               </div>
             </div>
@@ -329,7 +317,7 @@ const animarElemento = (elemento) => {
             :style="{ '--item-index': index }"
           >
             <div class="carousel-marker">
-              <div class="marker-circle" :class="obtenerEstadoClase(item.estado)">
+              <div class="marker-circle" :class="obtenerEstadoClase(item)">
                 <img :src="item.icono" :alt="item.institucion" class="marker-icon">
               </div>
               <span class="carousel-date">{{ item.fecha }}</span>
@@ -340,7 +328,7 @@ const animarElemento = (elemento) => {
                 <div class="educacion-header">
                   <div class="educacion-titulo-container">
                     <h3 class="educacion-titulo">{{ item.title }}</h3>
-                    <span class="educacion-estado" :class="obtenerEstadoClase(item.estado)">
+                    <span class="educacion-estado" :class="obtenerEstadoClase(item)">
                       {{ item.estado }}
                     </span>
                   </div>
@@ -351,7 +339,7 @@ const animarElemento = (elemento) => {
                   <p class="educacion-descripcion">{{ item.descripcion }}</p>
                   
                   <div class="destacado-container">
-                    <h4>Puntos Clave:</h4>
+                    <h4>{{ t('education.keyPoints') }}</h4>
                     <ul class="destacado-list">
                       <li v-for="(punto, idx) in item.destacado" :key="idx">
                         <span class="check-icon">✓</span>
@@ -433,7 +421,7 @@ const animarElemento = (elemento) => {
 
       <!-- Call to Action -->
       <div class="educacion-cta">
-        <p class="cta-text">¿Interesado en mi formación o experiencia académica?</p>
+        <p class="cta-text">{{ t('education.ctaText') }}</p>
         <div class="cta-buttons">
           <a 
             href="https://www.linkedin.com/in/ezequielquiroz/" 
@@ -442,7 +430,7 @@ const animarElemento = (elemento) => {
             rel="noopener noreferrer"
           >
             <span class="cta-icon">👨‍💼</span>
-            Conectar en LinkedIn
+            {{ t('education.ctaLinkedin') }}
           </a>
           <a 
             :href="cvPdf" 
@@ -451,7 +439,7 @@ const animarElemento = (elemento) => {
             rel="noopener noreferrer"
           >
             <span class="cta-icon">📄</span>
-            Ver Currículum Completo
+            {{ t('education.ctaCv') }}
           </a>
         </div>
       </div>

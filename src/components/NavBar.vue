@@ -6,7 +6,7 @@
         <div class="brand-logo">
           <span class="logo-symbol">&lt;/&gt;</span>
         </div>
-        <span class="brand-name">Ezequiel Quiroz</span>
+        <span class="brand-name">{{ t('nav.brand') }}</span>
       </div>
 
       <!-- Menú Hamburguesa (Mobile) -->
@@ -39,29 +39,30 @@
 
         <!-- Botones de acción -->
         <div class="navbar-actions">
+          <LangToggle />
           <a 
             href="https://wa.me/542604005223" 
             target="_blank"
             rel="noopener noreferrer"
             class="action-button whatsapp-button"
-            title="Contactar por WhatsApp"
+            :title="t('nav.whatsappTitle')"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="button-icon">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297a11.815 11.815 0 00-8.413-3.488c-6.627 0-12.005 5.378-12.005 12.005 0 2.125.556 4.19 1.611 6.008l-1.713 6.252 6.391-1.676a11.952 11.952 0 005.716 1.456h.005c6.626 0 12.004-5.378 12.004-12.004a11.938 11.938 0 00-3.496-8.453"/>
             </svg>
-            <span class="button-text">WhatsApp</span>
+            <span class="button-text">{{ t('nav.whatsapp') }}</span>
           </a>
           
           <a 
             href="https://github.com/EzequielQ2004" 
             target="_blank" 
             class="action-button github-button"
-            title="Ver mi GitHub"
+            :title="t('nav.githubTitle')"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="button-icon">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
-            <span class="button-text">GitHub</span>
+            <span class="button-text">{{ t('nav.github') }}</span>
           </a>
         </div>
       </div>
@@ -74,6 +75,10 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { useI18n } from '../utils/i18n.js';
+import LangToggle from './LangToggle.vue';
+
+const { t } = useI18n();
 
 // SVG icons (Heroicons simplified)
 const svgIcons = {
@@ -86,13 +91,12 @@ const svgIcons = {
 };
 
 // Lista de elementos de navegación con SVG
-const navegacion = ref([
-  { id: 1, nombre: "Inicio", enlace: "#inicio", iconSvg: svgIcons.home },
-  { id: 2, nombre: "Educación", enlace: "#educacion", iconSvg: svgIcons.academic },
-  // { id: 3, nombre: "Experiencia", enlace: "#experiencia", iconSvg: svgIcons.briefcase },
-  { id: 4, nombre: "Proyectos", enlace: "#proyectos", iconSvg: svgIcons.rocket },
-  { id: 5, nombre: "Habilidades", enlace: "#habilidades", iconSvg: svgIcons.bolt },
-  { id: 6, nombre: "Contacto", enlace: "#contacto", iconSvg: svgIcons.contact }
+const navegacion = computed(() => [
+  { id: 1, nombre: t('nav.inicio'), enlace: "#inicio", iconSvg: svgIcons.home },
+  { id: 2, nombre: t('nav.educacion'), enlace: "#educacion", iconSvg: svgIcons.academic },
+  { id: 4, nombre: t('nav.proyectos'), enlace: "#proyectos", iconSvg: svgIcons.rocket },
+  { id: 5, nombre: t('nav.habilidades'), enlace: "#habilidades", iconSvg: svgIcons.bolt },
+  { id: 6, nombre: t('nav.contacto'), enlace: "#contacto", iconSvg: svgIcons.contact }
 ]);
 
 // Estados reactivos
@@ -147,16 +151,14 @@ function toggleMenu() {
 
 // Detectar sección activa al hacer scroll
 function getSectionName(sectionId) {
-  const names = {
-    'inicio': 'Inicio',
-    'educacion': 'Educación',
-    // 'experiencia': 'Experiencia',
-    'proyectos': 'Proyectos',
-    'habilidades': 'Habilidades',
-    'contacto': 'Contacto'
-    // 'intereses': 'Intereses'
+  const map = {
+    'inicio': t('nav.inicio'),
+    'educacion': t('nav.educacion'),
+    'proyectos': t('nav.proyectos'),
+    'habilidades': t('nav.habilidades'),
+    'contacto': t('nav.contacto')
   };
-  return names[sectionId] || sectionId;
+  return map[sectionId] || sectionId;
 }
 
 function updateActiveSection() {

@@ -1,22 +1,19 @@
 <script setup>
 import { onMounted, nextTick } from 'vue';
+import { useI18n } from '../utils/i18n.js';
 import linkedin from '/src/assets/linkedin_icon.svg';
 import github from '/src/assets/github_icon.svg';
 import cv from '/src/assets/cv_resume_icon.svg';
 import fotoPerfil from '/src/assets/foto_perfil.jpg';
-import cvPdf from '/src/assets/cv.pdf';
+const cvPdf = '/cv-ezequiel-quiroz.pdf';
 
-const title = 'Ezequiel Quiroz';
-const subtitle = 'Desarrollador Web & Técnico en Programación';
-const descripcion = 'Técnico Universitario en Programación - UTN';
-const residencia = '📍 San Rafael, Mendoza, Argentina';
-const presentacion = '¡Hola! Bienvenido a mi portafolio. Soy un apasionado del desarrollo web y móvil, siempre en busca de mejorar mis habilidades y colaborar en proyectos innovadores.';
+const { t } = useI18n();
+const telefono = '+54 2604-005223';
 const redesSociales = [
   { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/ezequielquiroz/' },
   { id: 2, name: 'GitHub', src: github, url: 'https://github.com/EzequielQ2004' },
-  { id: 3, name: 'Currículum', src: cv, url: cvPdf, download: true, filename: 'CV-Ezequiel-Quiroz.pdf' },
+  { id: 3, name: 'CV', src: cv, url: cvPdf, download: true, filename: 'CV-Ezequiel-Quiroz.pdf' },
 ];
-const telefono = '+54 2604-005223';
 
 // Animación de entrada
 onMounted(() => {
@@ -58,10 +55,10 @@ onMounted(() => {
       <!-- Textos e información -->
       <div class="info-section animate-element" data-delay="200">
         <div class="info-content">
-          <h1 class="title animate-element" data-delay="300">{{ title }}</h1>
-          <h2 class="subtitle animate-element" data-delay="400">{{ subtitle }}</h2>
-          <p class="descripcion animate-element" data-delay="500">{{ descripcion }}</p>
-          <p class="presentacion animate-element" data-delay="600">{{ presentacion }}</p>
+          <h1 class="title animate-element" data-delay="300">{{ t('hero.title') }}</h1>
+          <h2 class="subtitle animate-element" data-delay="400">{{ t('hero.subtitle') }}</h2>
+          <p class="descripcion animate-element" data-delay="500">{{ t('hero.description') }}</p>
+          <p class="presentacion animate-element" data-delay="600">{{ t('hero.intro') }}</p>
 
           <ul class="redes-sociales animate-element" data-delay="700">
             <li v-for="red in redesSociales" :key="red.id" class="animate-element" :data-delay="800 + (red.id * 100)">
@@ -77,9 +74,9 @@ onMounted(() => {
           </ul>
 
           <p class="contacto animate-element" data-delay="1100">
-            <strong> Teléfono:</strong> {{ telefono }}
+            <strong>{{ t('hero.phone') }}</strong>
           </p>
-          <p class="residencia animate-element" data-delay="1200">{{ residencia }}</p>
+          <p class="residencia animate-element" data-delay="1200">{{ t('hero.residence') }}</p>
         </div>
       </div>
     </div>

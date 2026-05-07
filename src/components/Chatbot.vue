@@ -47,7 +47,7 @@ const initialMessage = {
   options: [
     { text: "Ver secciones del portafolio", action: "sections", icon: SectionsIcon },
     { text: "Conocer a Ezequiel", action: "about", icon: UserIcon },
-    // { text: "Ver experiencia", action: "experience", icon: CodeIcon },
+
     { text: "Ver proyectos", action: "projects", icon: ProjectsIcon },
     { text: "Ver habilidades", action: "skills", icon: SkillsIcon },
     { text: "Contacto", action: "contact", icon: ContactIcon }
@@ -61,7 +61,7 @@ const options = {
     options: [
       { text: "Inicio - Datos personales", action: "scroll:inicio", icon: HomeIcon },
       { text: "Educación - Formación académica", action: "scroll:educacion", icon: EducationIcon },
-      // { text: "Experiencia - Trayectoria profesional", action: "scroll:experiencia", icon: CodeIcon },
+
       { text: "Proyectos - Trabajos realizados", action: "scroll:proyectos", icon: ProjectsIcon },
       { text: "Habilidades - Conocimientos técnicos", action: "scroll:habilidades", icon: SkillsIcon },
       // { text: "Intereses - Pasiones personales", action: "scroll:intereses", icon: HeartIcon },
@@ -73,18 +73,11 @@ const options = {
     options: [
       { text: "Información de contacto", action: "contact", icon: ContactIcon },
       { text: "Formación académica", action: "education", icon: EducationIcon },
-      // { text: "Experiencia profesional", action: "experience", icon: CodeIcon },
+
       { text: "Volver al menú principal", action: "menu", icon: BackIcon }
     ]
   },
-  experience: {
-    text: "Ezequiel tiene experiencia como desarrollador backend en Ferretería San Francisco (pasantía remota) y varios proyectos universitarios colaborativos. Actualmente busca su primera oportunidad profesional como desarrollador junior.",
-    options: [
-      { text: "Ver proyectos específicos", action: "projects", icon: CodeIcon },
-      { text: "Ver formación", action: "education", icon: EducationIcon },
-      { text: "Volver al menú", action: "menu", icon: BackIcon }
-    ]
-  },
+
   skills: {
     text: "Habilidades técnicas: JavaScript, Vue.js, React, HTML/CSS, Java, Python, Git, MySQL. Habilidades personales: Aprendizaje rápido, trabajo en equipo, adaptabilidad, resolución de problemas.",
     options: [
@@ -97,7 +90,7 @@ const options = {
     text: "Educación:\n• UTN San Rafael - Tecnicatura en Programación (2024-2025)\n• Escuela Agropecuaria Antonio Di Benedetto - Técnico Agropecuario (2018-2023)",
     options: [
       { text: "Proyectos universitarios", action: "projects", icon: TargetIcon },
-      { text: "Experiencia práctica", action: "experience", icon: CodeIcon },
+
       { text: "Menú principal", action: "menu", icon: BackIcon }
     ]
   },
@@ -217,7 +210,7 @@ function getSectionName(sectionId) {
   const names = {
     'inicio': 'Inicio',
     'educacion': 'Educación',
-    // 'experiencia': 'Experiencia',
+
     'proyectos': 'Proyectos',
     'habilidades': 'Habilidades',
     // 'intereses': 'Intereses'
@@ -254,7 +247,7 @@ function copyToClipboard(type) {
 function showDetails(section) {
   const details = {
     'educacion': '📚 Educación detallada:\n\nUTN San Rafael (2024-2025):\n• Algoritmos y estructuras de datos\n• Programación orientada a objetos\n• Bases de datos y SQL\n• Desarrollo web frontend/backend\n\nEscuela Técnica (2018-2023):\n• Desarrollo de habilidades analíticas\n• Trabajo en equipo en proyectos prácticos\n• Gestión y resolución de problemas',
-    'experiencia': '💼 Experiencia detallada:\n\nFerretería San Francisco (Pasantía):\n• Desarrollo de funcionalidades backend\n• Trabajo colaborativo con equipo remoto\n• Implementación de soluciones técnicas\n\nProyectos Universitarios:\n• Metodologías ágiles (Scrum)\n• Control de versiones con Git\n• Desarrollo de software completo',
+
     'proyectos': '🚀 Proyectos detallados:\n\n1. Capybara Films:\n   - Sistema de gestión para videoclub\n   - Tecnologías: Java, Swing, MySQL\n   - Trabajo en equipo universitario\n\n2. CapyGaming:\n   - E-commerce para productos gamers\n   - Frontend: HTML, CSS, JavaScript\n   - Diseño responsive y funcional\n\n3. Portafolio Web:\n   - Sitio personal desarrollado en Vue.js\n   - Diseño moderno y responsive\n   - Implementación de chatbot',
     'habilidades': '⚡ Habilidades detalladas:\n\nFrontend:\n• JavaScript (Intermedio)\n• Vue.js (Intermedio-Avanzado)\n• HTML5/CSS3 (Avanzado)\n• React (Básico-Intermedio)\n\nBackend:\n• Java (Intermedio)\n• Python (Básico)\n• Node.js (Básico)\n\nBases de Datos:\n• MySQL (Intermedio)\n• PostgreSQL (Básico)\n• MongoDB (Básico)\n\nHerramientas:\n• Git/GitHub (Intermedio)\n• VS Code (Avanzado)',
     // 'intereses': '❤️ Intereses personales:\n\n• 🏋️‍♂️ Entrenamiento físico en casa\n   - Calistenia y ejercicios con peso\n   - Disciplina y constancia\n\n• 📚 Lectura y aprendizaje\n   - Artículos científicos y tecnológicos\n   - Libros de desarrollo personal\n\n• 🎵 Música y entretenimiento\n   - Variedad de géneros musicales\n   - Películas y series inspiradoras\n\n• 🔧 Exploración tecnológica\n   - Nuevas herramientas de desarrollo\n   - Videojuegos que desafían la lógica'
@@ -333,9 +326,6 @@ function processUserInput(input) {
     }
     else if (lowerInput.includes('educación') || lowerInput.includes('estudio') || lowerInput.includes('formación')) {
       handleOption({ action: 'education' });
-    }
-    else if (lowerInput.includes('experiencia') || lowerInput.includes('trabajo') || lowerInput.includes('laboral')) {
-      handleOption({ action: 'experience' });
     }
     else if (lowerInput.includes('quien') || lowerInput.includes('eres') || lowerInput.includes('sobre ti')) {
       handleOption({ action: 'about' });

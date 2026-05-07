@@ -1,5 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useI18n } from '../utils/i18n.js';
+
+const { t } = useI18n();
 
 import impostorWeb from '/src/assets/impostorweb.gif';
 import proyectoCapyGaming from '/src/assets/capygaming.gif';
@@ -8,107 +11,40 @@ import adivinaLaBanderaWeb from '/src/assets/adivinalabandera.gif';
 import calculadoraAguinaldoSimple from '/src/assets/calculadoraaguinaldosimple.gif';
 import ferreteriaSanFranciscoWeb from '/src/assets/ferreteriasanfranciscoweb.gif';
 
-const misProyectos = ref([
-    {
-        id: 1,
-        src: proyectoCapyGaming,
-        titulo: "CapyGaming",
-        subtitulo: "E-commerce Gamer",
-        descripcion: "Plataforma de comercio electrónico especializada en productos gamers. Desarrollado colaborativamente aplicando metodologías ágiles y control de versiones.",
-        anio: "2025",
-        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub', 'Vue', 'Node', 'Express', 'PostgreSQL', 'Metodologías Ágiles'],
-        proyectoLink: "https://capygaming-frontend-uffp.onrender.com/",
-        githubLink: "https://github.com/PowerSystem2024/CapyGaming-CarpinchosProgramando",
-    },
-    {
-        id: 2,
-        src: ferreteriaSanFranciscoWeb,
-        titulo: "Ferretería San Francisco Web",
-        subtitulo: "Sitio web para ferretería San Francisco",
-        descripcion: "Sitio web para ferretería San Francisco, con información sobre productos y servicios.",
-        anio: "2025-2026",
-        tecnologias: ['HTML', 'CSS', 'JavaScript', 'Vercel', 'Docker', 'GitHub', 'React', 'Vite', 'Tailwind CSS'],
-        proyectoLink: "https://ferreteria-san-francisco-web.vercel.app/",
-        githubLink: "https://github.com/Ferreteria-San-Francisco/ferreteria-san-francisco-web",
-    },
-    {
-        id: 3,
-        src: impostorWeb,
-        titulo: "Juego del Impostor",
-        subtitulo: "juego del impostor para jugar en el navegador",
-        descripcion: "El juego permite agregar jugadores, elegir categorías de palabras y el número de impostores por partida. ¡Prepárate para descubrir quién es el impostor y ganar el juego!",
-        anio: "2026",
-        tecnologias: ['JavaScript','HTML', 'CSS', 'GitHub Pages'],
-        proyectoLink: "https://ezequielq2004.github.io/impostor-web/",
-        githubLink: "https://github.com/EzequielQ2004/impostor-web",
-    },
-    {
-        id: 4,
-        src: adivinaLaBanderaWeb,
-        titulo: "Adivina la Bandera",
-        subtitulo: "Juego simple para entretener y aprender banderas directamente en tu navegador - ¡Sin instalaciones!",
-        descripcion: "El juego permite elegir entre 3 niveles de difucultad, cada uno con un número diferente de banderas a adivinar. ¡Pon a prueba tus conocimientos geográficos y diviértete adivinando banderas de todo el mundo!",
-        anio: "2026",
-        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
-        proyectoLink: "https://ezequielq2004.github.io/AdivinaLaBanderaWeb/",
-        githubLink: "https://github.com/EzequielQ2004/AdivinaLaBanderaWeb",
-    },
-    {
-        id: 5,
-        src: adivinaAnimalEmojis,
-        titulo: "Adivina el Animal con Emojis",
-        subtitulo: "Juego interactivo para adivinar animales usando emojis",
-        descripcion: "Un juego interactivo y educativo donde debes adivinar animales basándote en pistas visuales representadas por emojis.",
-        anio: "2026",
-        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
-        proyectoLink: "https://ezequielq2004.github.io/adivinaanimalemojis/",
-        githubLink: "https://github.com/EzequielQ2004/adivinaanimalemojis",
-    },
-    {
-        id: 6,
-        src: calculadoraAguinaldoSimple,
-        titulo: "Calculadora de Aguinaldo Simple",
-        subtitulo: "Calculadora simple para calcular el aguinaldo de empleados",
-        descripcion: "Una calculadora simple para calcular el aguinaldo de empleados según su salario y antigüedad. Ideal para uso en entornos laborales.",
-        anio: "2025",
-        tecnologias: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
-        proyectoLink: "https://ezequielq2004.github.io/calculadora-aguinaldo-simple/",
-        githubLink: "https://github.com/EzequielQ2004/calculadora-aguinaldo-simple",
-    },
+const proyectosBase = [
+    { id: 1, src: proyectoCapyGaming, categoria: 'grupal', proyectoLink: "https://capygaming-frontend-uffp.onrender.com/", githubLink: "https://github.com/PowerSystem2024/CapyGaming-CarpinchosProgramando" },
+    { id: 2, src: ferreteriaSanFranciscoWeb, categoria: 'grupal', proyectoLink: "https://ferreteria-san-francisco-web.vercel.app/", githubLink: "https://github.com/Ferreteria-San-Francisco/ferreteria-san-francisco-web" },
+    { id: 3, src: impostorWeb, categoria: 'personal', proyectoLink: "https://ezequielq2004.github.io/impostor-web/", githubLink: "https://github.com/EzequielQ2004/impostor-web" },
+    { id: 4, src: adivinaLaBanderaWeb, categoria: 'personal', proyectoLink: "https://ezequielq2004.github.io/AdivinaLaBanderaWeb/", githubLink: "https://github.com/EzequielQ2004/AdivinaLaBanderaWeb" },
+    { id: 5, src: adivinaAnimalEmojis, categoria: 'personal', proyectoLink: "https://ezequielq2004.github.io/adivinaanimalemojis/", githubLink: "https://github.com/EzequielQ2004/adivinaanimalemojis" },
+    { id: 6, src: calculadoraAguinaldoSimple, categoria: 'personal', proyectoLink: "https://ezequielq2004.github.io/calculadora-aguinaldo-simple/", githubLink: "https://github.com/EzequielQ2004/calculadora-aguinaldo-simple" },
+];
+
+const misProyectos = computed(() =>
+    proyectosBase.map((base, i) => ({
+        ...base,
+        ...t('projects.items')[i]
+    }))
+);
+
+const filtros = computed(() => [
+    t('projects.filterAll'),
+    t('projects.filterPersonal'),
+    t('projects.filterGrupal')
 ]);
 
-const filtros = ref(['Todos', 'Personal', 'Grupal']);
-const filtroActivo = ref('Todos');
+const filtroActivo = ref('');
 
-function filtrarProyectos(tecnologia) {
-    filtroActivo.value = tecnologia;
+function filtrarProyectos(filtro) {
+    filtroActivo.value = filtro;
 }
 
-const proyectosFiltrados = ref([]);
-
-// Computed property para filtrar proyectos
-import { computed } from 'vue';
-
 const proyectosMostrados = computed(() => {
-    if (filtroActivo.value === 'Todos') {
+    if (!filtroActivo.value || filtroActivo.value === t('projects.filterAll')) {
         return misProyectos.value;
     }
-    
-    return misProyectos.value.filter(proyecto => {
-        // Mapear filtros a tecnologías específicas
-        const mapFiltros = {
-            'Grupal': proyecto.titulo.includes('Capy') || proyecto.titulo.includes('Web'),
-            'Personal': proyecto.titulo.includes('Juego') || proyecto.titulo.includes('Adivina') || proyecto.titulo.includes('Calculadora'),
-        };
-        
-        if (typeof mapFiltros[filtroActivo.value] === 'boolean') {
-            return mapFiltros[filtroActivo.value];
-        }
-        
-        return proyecto.tecnologias.some(tech => 
-            mapFiltros[filtroActivo.value].includes(tech)
-        );
-    });
+    const targetCategoria = filtroActivo.value === t('projects.filterPersonal') ? 'personal' : 'grupal';
+    return misProyectos.value.filter(p => p.categoria === targetCategoria);
 });
 </script>
 
@@ -187,7 +123,7 @@ const proyectosMostrados = computed(() => {
                                 rel="noopener noreferrer"
                             >
                                 <span class="btn-icon">🔍</span>
-                                Ver Proyecto
+                                {{ t('projects.viewProject') }}
                             </a>
                             <a 
                                 :href="proyecto.githubLink" 
@@ -196,7 +132,7 @@ const proyectosMostrados = computed(() => {
                                 rel="noopener noreferrer"
                             >
                                 <span class="btn-icon"><img src="/src/assets/github_icon.svg" width="16" alt="GitHub"></span>
-                                Código Fuente
+                                {{ t('projects.viewCode') }}
                             </a>
                         </div>
                     </div>
@@ -207,21 +143,21 @@ const proyectosMostrados = computed(() => {
             <div class="estadisticas">
                 <div class="estadistica-item">
                     <span class="estadistica-numero">{{ misProyectos.length }}+</span>
-                    <span class="estadistica-texto">Proyectos Completados</span>
+                    <span class="estadistica-texto">{{ t('projects.statProjects') }}</span>
                 </div>
                 <div class="estadistica-item">
                     <span class="estadistica-numero">4+</span>
-                    <span class="estadistica-texto">Tecnologías</span>
+                    <span class="estadistica-texto">{{ t('projects.statTechs') }}</span>
                 </div>
                 <div class="estadistica-item">
                     <span class="estadistica-numero">100%</span>
-                    <span class="estadistica-texto">En GitHub</span>
+                    <span class="estadistica-texto">{{ t('projects.statGithub') }}</span>
                 </div>
             </div>
 
             <!-- Call to Action -->
             <div class="cta-proyectos">
-                <p>¿Interesado en ver más proyectos o colaborar?</p>
+                <p>{{ t('projects.ctaText') }}</p>
                 <a 
                     href="https://github.com/EzequielQ2004" 
                     class="btn-cta"
@@ -229,7 +165,7 @@ const proyectosMostrados = computed(() => {
                     rel="noopener noreferrer"
                 >
                     <span class="cta-icon">🚀</span>
-                    Explorar Mi GitHub
+                    {{ t('projects.ctaButton') }}
                 </a>
             </div>
         </div>

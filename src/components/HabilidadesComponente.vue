@@ -1,5 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useI18n } from '../utils/i18n.js';
+
+const { t } = useI18n();
 
 import img1 from '/src/components/icons/js.svg';
 import img2 from '/src/components/icons/python.svg';
@@ -19,63 +22,37 @@ import img18 from '/src/components/icons/postgres.svg';
 import img19 from '/src/components/icons/arg.svg';
 import img20 from '/src/components/icons/eeuu.svg';
 
-const habilidades = ref([
-    {
-        id: 1, 
-        nombre: 'Lenguajes de Programación', 
-        icono: '💻',
-        habilidades: [
-            { id: 1, nombre: 'JavaScript', nivel: 70, icono: img1, experiencia: 'Desarrollo web, proyectos universitarios' },
-            { id: 2, nombre: 'Python', nivel: 40, icono: img2, experiencia: 'Lógica de programación, scripts básicos' },
-            { id: 3, nombre: 'HTML/CSS', nivel: 80, icono: img3, experiencia: 'Maquetación web, diseño responsive' },
-            { id: 4, nombre: 'Java', nivel: 65, icono: img4, experiencia: 'Proyectos universitarios, programación OOP' },
-            { id: 5, nombre: 'SQL', nivel: 60, icono: img5, experiencia: 'Consultas, diseño de bases de datos' }
-        ]
-    },
-    {
-        id: 2, 
-        nombre: 'Frameworks y Librerías', 
-        icono: '⚙️',
-        habilidades: [
-            { id: 1, nombre: 'React.js', nivel: 65, icono: img6, experiencia: 'Componentes, hooks, estado' },
-            { id: 2, nombre: 'Vue.js', nivel: 75, icono: img7, experiencia: 'Composition API, componentes, este portafolio' },
-            { id: 3, nombre: 'Node.js', nivel: 55, icono: img8, experiencia: 'Backend básico, APIs REST' },
-        ]
-    },
-    {
-        id: 3, 
-        nombre: 'Herramientas y Software', 
-        icono: '🛠️',
-        habilidades: [
-            { id: 1, nombre: 'Git', nivel: 75, icono: img11, experiencia: 'Control de versiones, trabajo colaborativo' },
-            { id: 2, nombre: 'Docker', nivel: 30, icono: img12, experiencia: 'Conceptos básicos, contenedores' },
-            { id: 4, nombre: 'Figma', nivel: 40, icono: img14, experiencia: 'Prototipado básico, diseño UI' },
-            { id: 5, nombre: 'Visual Studio Code', nivel: 85, icono: img15, experiencia: 'Editor principal, extensions' }
-        ]
-    },
-    {
-        id: 4, 
-        nombre: 'Bases de Datos', 
-        icono: '🗄️',
-        habilidades: [
-            { id: 1, nombre: 'MongoDB', nivel: 45, icono: img16, experiencia: 'NoSQL, documentos JSON' },
-            { id: 2, nombre: 'MySQL', nivel: 65, icono: img17, experiencia: 'Proyectos universitarios, relaciones' },
-            { id: 3, nombre: 'PostgreSQL', nivel: 70, icono: img18, experiencia: 'Consultas avanzadas, transacciones' }
-        ]
-    },
-    {
-        id: 5, 
-        nombre: 'Idiomas', 
-        icono: '🌍',
-        habilidades: [
-            { id: 1, nombre: 'Español', nivel: 100, icono: img19, experiencia: 'Lengua materna' },
-            { id: 2, nombre: 'Inglés', nivel: 30, icono: img20, experiencia: 'Lectura técnica básica' }
-        ]
-    }
-]);
+const habilidadesBase = [
+    { id: 1, icono: '💻', iconos: [img1, img2, img3, img4, img5] },
+    { id: 2, icono: '⚙️', iconos: [img6, img7, img8] },
+    { id: 3, icono: '🛠️', iconos: [img11, img12, img14, img15] },
+    { id: 4, icono: '🗄️', iconos: [img16, img17, img18] },
+    { id: 5, icono: '🌍', iconos: [img19, img20] }
+];
 
-const filtros = ref(['Todos', 'Frontend', 'Backend', 'Herramientas', 'Idiomas']);
-const filtroActivo = ref('Todos');
+const habilidades = computed(() =>
+    habilidadesBase.map((base, catIdx) => {
+        const catData = t('skills.categories')[catIdx];
+        return {
+            ...base,
+            nombre: catData.nombre,
+            habilidades: catData.habilidades.map((h, skillIdx) => ({
+                ...h,
+                id: skillIdx + 1,
+                icono: base.iconos[skillIdx]
+            }))
+        };
+    })
+);
+
+const filtros = computed(() => [
+    t('skills.filterAll'),
+    t('skills.filterFrontend'),
+    t('skills.filterBackend'),
+    t('skills.filterTools'),
+    t('skills.filterLanguages')
+]);
+const filtroActivo = ref('');
 const habilidadSeleccionada = ref(null);
 const carruselRef = ref(null);
 const currentSlide = ref(0);
@@ -97,20 +74,20 @@ function cerrarDetalles() {
 }
 
 // Obtener habilidades filtradas
+const filterKeys = ['all', 'frontend', 'backend', 'tools', 'languages'];
+const filterToCategoryIds = {
+    all: [1, 2, 3, 4, 5],
+    frontend: [1, 2],
+    backend: [1, 4],
+    tools: [3],
+    languages: [5]
+};
+
 const habilidadesFiltradas = computed(() => {
-    if (filtroActivo.value === 'Todos') {
-        return habilidades.value;
-    }
-    
-    const categoriasMap = {
-        'Frontend': [1, 2], // Lenguajes y Frameworks
-        'Backend': [1, 4], // Lenguajes y Bases de Datos
-        'Herramientas': [3],
-        'Idiomas': [5]
-    };
-    
-    const categoriasIds = categoriasMap[filtroActivo.value] || [];
-    return habilidades.value.filter(cat => categoriasIds.includes(cat.id));
+    const idx = filtros.value.indexOf(filtroActivo.value);
+    const key = idx >= 0 ? filterKeys[idx] : 'all';
+    const ids = filterToCategoryIds[key] || [1, 2, 3, 4, 5];
+    return habilidades.value.filter(cat => ids.includes(cat.id));
 });
 
 const totalSlides = computed(() => habilidadesFiltradas.value.length);
@@ -129,10 +106,10 @@ function updateCurrentSlide() {
 
 // Obtener nivel como texto
 function obtenerNivelTexto(nivel) {
-    if (nivel >= 80) return 'Avanzado';
-    if (nivel >= 60) return 'Intermedio';
-    if (nivel >= 40) return 'Básico-Intermedio';
-    return 'Básico';
+    if (nivel >= 80) return t('skills.advanced');
+    if (nivel >= 60) return t('skills.intermediate');
+    if (nivel >= 40) return t('skills.beginner') + '-Intermediate';
+    return t('skills.beginner');
 }
 
 // Obtener color según nivel
@@ -261,12 +238,12 @@ onUnmounted(() => {
                     
                     <div class="modal-body">
                         <div class="modal-experiencia">
-                            <h4>Experiencia:</h4>
+                            <h4>{{ t('skills.experience') }}</h4>
                             <p>{{ habilidadSeleccionada.experiencia }}</p>
                         </div>
                         
                         <div class="modal-progreso">
-                            <h4>Nivel de Dominio:</h4>
+                            <h4>{{ t('skills.masteryLevel') }}</h4>
                             <div class="progreso-bar">
                                 <div 
                                     class="progreso-fill"
@@ -277,16 +254,16 @@ onUnmounted(() => {
                                 ></div>
                             </div>
                             <div class="progreso-labels">
-                                <span>Principiante</span>
-                                <span>Intermedio</span>
-                                <span>Avanzado</span>
-                                <span>Experto</span>
+                                <span>{{ t('skills.beginner') }}</span>
+                                <span>{{ t('skills.intermediate') }}</span>
+                                <span>{{ t('skills.advanced') }}</span>
+                                <span>{{ t('skills.expert') }}</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="modal-footer">
-                        <button class="btn-cerrar" @click="cerrarDetalles">Cerrar</button>
+                        <button class="btn-cerrar" @click="cerrarDetalles">{{ t('skills.close') }}</button>
                     </div>
                 </div>
             </div>
@@ -297,21 +274,21 @@ onUnmounted(() => {
                     <div class="estadistica-icon">📚</div>
                     <div class="estadistica-info">
                         <span class="estadistica-numero">{{ habilidades.reduce((acc, cat) => acc + cat.habilidades.length, 0) }}+</span>
-                        <span class="estadistica-texto">Habilidades</span>
+                        <span class="estadistica-texto">{{ t('skills.statSkills') }}</span>
                     </div>
                 </div>
                 <div class="estadistica-item">
                     <div class="estadistica-icon">🎯</div>
                     <div class="estadistica-info">
                         <span class="estadistica-numero">{{ habilidadesFiltradas.length }}</span>
-                        <span class="estadistica-texto">Categorías</span>
+                        <span class="estadistica-texto">{{ t('skills.statCategories') }}</span>
                     </div>
                 </div>
                 <div class="estadistica-item">
                     <div class="estadistica-icon">📈</div>
                     <div class="estadistica-info">
                         <span class="estadistica-numero">75%</span>
-                        <span class="estadistica-texto">Promedio</span>
+                        <span class="estadistica-texto">{{ t('skills.statAverage') }}</span>
                     </div>
                 </div>
             </div>

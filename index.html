@@ -9,11 +9,11 @@
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" 
           content="default-src 'self'; 
-                   script-src 'self' 'unsafe-inline' 'unsafe-eval'; 
+                   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; 
                    style-src 'self' 'unsafe-inline'; 
-                   img-src 'self' data: https:; 
+                   img-src 'self' data: https: https://www.google-analytics.com; 
                    font-src 'self' data:; 
-                   connect-src 'self' https:; 
+                   connect-src 'self' https: https://www.google-analytics.com https://region1.google-analytics.com; 
                    media-src 'self'; 
                    object-src 'none'; 
                    base-uri 'self'; 
@@ -27,9 +27,39 @@
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     
     <!-- Meta tags adicionales -->
-    <meta name="description" content="Portafolio de Ezequiel Quiroz - Desarrollador Web">
+    <meta name="description" content="Portafolio de Ezequiel Quiroz - Desarrollador Web & Técnico en Programación. Proyectos, habilidades y experiencia en Vue.js, React, JavaScript y más.">
     <meta name="author" content="Ezequiel Quiroz">
+    <meta name="keywords" content="Ezequiel Quiroz, desarrollador web, portafolio, Vue.js, React, JavaScript, programador, Argentina, San Rafael">
     <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ezequielquiroz-portafolio.netlify.app/">
+    <meta property="og:title" content="Ezequiel Quiroz - Desarrollador Web">
+    <meta property="og:description" content="Portafolio de Ezequiel Quiroz - Desarrollador Web & Técnico en Programación. Proyectos, habilidades y experiencia.">
+    <meta property="og:image" content="https://ezequielquiroz-portafolio.netlify.app/og-image.png">
+    <meta property="og:locale" content="es_AR">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ezequiel Quiroz - Desarrollador Web">
+    <meta name="twitter:description" content="Portafolio de Ezequiel Quiroz - Desarrollador Web & Técnico en Programación.">
+    <meta name="twitter:image" content="https://ezequielquiroz-portafolio.netlify.app/og-image.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ezequiel Quiroz",
+      "jobTitle": "Desarrollador Web",
+      "url": "https://ezequielquiroz-portafolio.netlify.app/",
+      "sameAs": [
+        "https://www.linkedin.com/in/ezequielquiroz/",
+        "https://github.com/EzequielQ2004"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="app"></div>

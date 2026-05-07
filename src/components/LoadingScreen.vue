@@ -6,7 +6,7 @@
         <div class="brand-logo">
           <span class="logo-symbol">&lt;/&gt;</span>
         </div>
-        <span class="brand-name">Ezequiel Quiroz</span>
+        <span class="brand-name">{{ t('loading.brand') }}</span>
       </div>
 
       <!-- Loading Animation -->
@@ -27,6 +27,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useI18n } from '../utils/i18n.js';
+
+const { t } = useI18n();
 
 const isFadeOut = ref(false);
 const progress = ref(0);

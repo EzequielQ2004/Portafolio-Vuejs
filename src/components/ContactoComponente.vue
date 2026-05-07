@@ -11,12 +11,12 @@
                 <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
-            Contacto
+            {{ t('contact.title') }}
           </h2>
           <span class="decorator-line"></span>
         </div>
         <p class="section-subtitle">
-          ¿Tienes un proyecto en mente? ¡Hablemos! Estoy disponible para nuevas oportunidades y colaboraciones.
+          {{ t('contact.subtitle') }}
         </p>
       </div>
 
@@ -32,7 +32,7 @@
               </svg>
             </div>
             <div class="card-content">
-              <h3>Email</h3>
+              <h3>{{ t('contact.email') }}</h3>
               <a href="mailto:quirozarielezequiel@gmail.com" class="contact-link">quirozarielezequiel@gmail.com</a>
             </div>
           </div>
@@ -44,7 +44,7 @@
               </svg>
             </div>
             <div class="card-content">
-              <h3>Teléfono</h3>
+              <h3>{{ t('contact.phone') }}</h3>
               <a href="tel:+542604005223" class="contact-link">+54 2604-005223</a>
             </div>
           </div>
@@ -57,14 +57,14 @@
               </svg>
             </div>
             <div class="card-content">
-              <h3>Ubicación</h3>
-              <p class="contact-text">San Rafael, Mendoza, Argentina</p>
+              <h3>{{ t('contact.location') }}</h3>
+              <p class="contact-text">{{ t('contact.locationValue') }}</p>
             </div>
           </div>
 
           <!-- Redes sociales -->
           <div class="social-links">
-            <h4>Redes Sociales</h4>
+            <h4>{{ t('contact.socialTitle') }}</h4>
             <div class="social-icons">
               <a href="https://github.com/EzequielQ2004" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -100,7 +100,7 @@
 
             <!-- Campo Nombre -->
             <div class="form-group">
-              <label for="nombre" class="form-label">Nombre *</label>
+              <label for="nombre" class="form-label">{{ t('contact.formName') }}</label>
               <input 
                 type="text" 
                 id="nombre" 
@@ -108,14 +108,14 @@
                 v-model="formData.nombre"
                 required
                 class="form-input"
-                placeholder="Tu nombre completo"
+                :placeholder="t('contact.formNamePlaceholder')"
               />
               <span class="form-error" v-if="errors.nombre">{{ errors.nombre }}</span>
             </div>
 
             <!-- Campo Email -->
             <div class="form-group">
-              <label for="email" class="form-label">Email *</label>
+              <label for="email" class="form-label">{{ t('contact.formEmail') }}</label>
               <input 
                 type="email" 
                 id="email" 
@@ -123,14 +123,14 @@
                 v-model="formData.email"
                 required
                 class="form-input"
-                placeholder="tu@email.com"
+                :placeholder="t('contact.formEmailPlaceholder')"
               />
               <span class="form-error" v-if="errors.email">{{ errors.email }}</span>
             </div>
 
             <!-- Campo Asunto -->
             <div class="form-group">
-              <label for="asunto" class="form-label">Asunto *</label>
+              <label for="asunto" class="form-label">{{ t('contact.formSubject') }}</label>
               <input 
                 type="text" 
                 id="asunto" 
@@ -138,14 +138,14 @@
                 v-model="formData.asunto"
                 required
                 class="form-input"
-                placeholder="¿Sobre qué quieres hablar?"
+                :placeholder="t('contact.formSubjectPlaceholder')"
               />
               <span class="form-error" v-if="errors.asunto">{{ errors.asunto }}</span>
             </div>
 
             <!-- Campo Mensaje -->
             <div class="form-group">
-              <label for="mensaje" class="form-label">Mensaje *</label>
+              <label for="mensaje" class="form-label">{{ t('contact.formMessage') }}</label>
               <textarea 
                 id="mensaje" 
                 name="mensaje" 
@@ -153,7 +153,7 @@
                 required
                 rows="5"
                 class="form-textarea"
-                placeholder="Cuéntame sobre tu proyecto..."
+                :placeholder="t('contact.formMessagePlaceholder')"
               ></textarea>
               <span class="form-error" v-if="errors.mensaje">{{ errors.mensaje }}</span>
             </div>
@@ -165,10 +165,10 @@
                 class="btn-submit"
                 :disabled="isSubmitting"
               >
-                <span v-if="!isSubmitting">Enviar Mensaje</span>
+                <span v-if="!isSubmitting">{{ t('contact.submit') }}</span>
                 <span v-else class="loading-text">
                   <span class="spinner"></span>
-                  Enviando...
+                  {{ t('contact.submitting') }}
                 </span>
               </button>
               
@@ -178,7 +178,7 @@
                 class="btn-reset"
                 :disabled="isSubmitting"
               >
-                Limpiar
+                {{ t('contact.reset') }}
               </button>
             </div>
           </form>
@@ -192,8 +192,8 @@
               </svg>
             </div>
             <div class="success-content">
-              <h4>¡Mensaje enviado!</h4>
-              <p>Te responderé lo antes posible. Gracias por contactarme.</p>
+              <h4>{{ t('contact.successTitle') }}</h4>
+              <p>{{ t('contact.successText') }}</p>
             </div>
           </div>
         </div>
@@ -204,6 +204,9 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import { useI18n } from '../utils/i18n.js';
+
+const { t } = useI18n();
 
 // Estado del formulario
 const formData = reactive({
@@ -236,37 +239,37 @@ function validateForm() {
 
   // Validar nombre
   if (!formData.nombre.trim()) {
-    errors.nombre = 'El nombre es requerido';
+    errors.nombre = t('contact.errorName');
     isValid = false;
   } else if (formData.nombre.trim().length < 2) {
-    errors.nombre = 'El nombre debe tener al menos 2 caracteres';
+    errors.nombre = t('contact.errorNameLength');
     isValid = false;
   }
 
   // Validar email
   if (!formData.email.trim()) {
-    errors.email = 'El email es requerido';
+    errors.email = t('contact.errorEmail');
     isValid = false;
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-    errors.email = 'El email no es válido';
+    errors.email = t('contact.errorEmailInvalid');
     isValid = false;
   }
 
   // Validar asunto
   if (!formData.asunto.trim()) {
-    errors.asunto = 'El asunto es requerido';
+    errors.asunto = t('contact.errorSubject');
     isValid = false;
   } else if (formData.asunto.trim().length < 3) {
-    errors.asunto = 'El asunto debe tener al menos 3 caracteres';
+    errors.asunto = t('contact.errorSubjectLength');
     isValid = false;
   }
 
   // Validar mensaje
   if (!formData.mensaje.trim()) {
-    errors.mensaje = 'El mensaje es requerido';
+    errors.mensaje = t('contact.errorMessage');
     isValid = false;
   } else if (formData.mensaje.trim().length < 10) {
-    errors.mensaje = 'El mensaje debe tener al menos 10 caracteres';
+    errors.mensaje = t('contact.errorMessageLength');
     isValid = false;
   }
 

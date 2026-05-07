@@ -4,22 +4,33 @@ import NavBar from './components/NavBar.vue';
 import LoadingScreen from './components/LoadingScreen.vue';
 import DatosPersonales from './components/DatosPersonales.vue';
 import Educacion from './components/EducacionComponente.vue';
-// import ExperienciaComponente from './components/ExperienciaComponente.vue';
+
 import ProyectosComponente from './components/ProyectosComponente.vue';
 import HabilidadesComponente from './components/HabilidadesComponente.vue';
 // import InteresesComponente from './components/InteresesComponente.vue';
 import Chatbot from './components/Chatbot.vue';
 import ContactoComponente from './components/ContactoComponente.vue';
+import { useAnalytics } from './utils/analytics.js';
+import { useI18n } from './utils/i18n.js';
+
+const { t } = useI18n();
 
 // Estado de carga
 const isLoading = ref(true);
 
 // Estado para mostrar/ocultar botón de volver arriba
 const showScrollTop = ref(false);
+const progressRef = ref(null);
 
-// Manejar scroll para mostrar/ocultar botón
+// Manejar scroll para mostrar/ocultar botón y progreso
 const handleScroll = () => {
   showScrollTop.value = window.scrollY > 500;
+  if (progressRef.value) {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressRef.value.style.width = scrollPercent + '%';
+  }
 };
 
 // Manejar completado de carga
@@ -39,6 +50,9 @@ const scrollToTop = () => {
 let observer;
 
 onMounted(() => {
+  // Inicializar analytics
+  useAnalytics();
+
   window.addEventListener('scroll', handleScroll);
   
   // Escuchar evento de carga completada
@@ -103,37 +117,17 @@ onUnmounted(() => {
               <span class="decorator-line"></span>
               <h2 class="section-title">
                 <span class="title-icon">🎓</span>
-                Educación
+                {{ t('education.title') }}
               </h2>
               <span class="decorator-line"></span>
             </div>
-            <p class="section-subtitle">Mi formación académica y trayectoria de aprendizaje</p>
+            <p class="section-subtitle">{{ t('education.subtitle') }}</p>
           </div>
           <Educacion />
         </div>
       </section>
 
-      <!-- Sección de Experiencia -->
-      <!-- <section 
-        id="experiencia" 
-        class="content-section"
-        data-section="experiencia"
-      >
-        <div class="section-container">
-          <div class="section-header">
-            <div class="section-decorator">
-              <span class="decorator-line"></span>
-              <h2 class="section-title">
-                <span class="title-icon">💼</span>
-                Experiencia
-              </h2>
-              <span class="decorator-line"></span>
-            </div>
-            <p class="section-subtitle">Mi recorrido profesional y proyectos destacados</p>
-          </div>
-          <ExperienciaComponente />
-        </div>
-      </section> -->
+
 
       <!-- Sección de Proyectos -->
       <section 
@@ -147,11 +141,11 @@ onUnmounted(() => {
               <span class="decorator-line"></span>
               <h2 class="section-title">
                 <span class="title-icon">🚀</span>
-                Proyectos
+                {{ t('projects.title') }}
               </h2>
               <span class="decorator-line"></span>
             </div>
-            <p class="section-subtitle">Trabajos y desarrollos que reflejan mis habilidades</p>
+            <p class="section-subtitle">{{ t('projects.subtitle') }}</p>
           </div>
           <ProyectosComponente />
         </div>
@@ -169,11 +163,11 @@ onUnmounted(() => {
               <span class="decorator-line"></span>
               <h2 class="section-title">
                 <span class="title-icon">⚡</span>
-                Habilidades
+                {{ t('skills.title') }}
               </h2>
               <span class="decorator-line"></span>
             </div>
-            <p class="section-subtitle">Conocimientos técnicos y herramientas que domino</p>
+            <p class="section-subtitle">{{ t('skills.subtitle') }}</p>
           </div>
           <HabilidadesComponente />
         </div>
@@ -212,52 +206,50 @@ onUnmounted(() => {
           <div class="footer-info">
             <div class="footer-brand">
               <span class="brand-logo">&lt;/&gt;</span>
-              <span class="brand-name">Ezequiel Quiroz</span>
+              <span class="brand-name">{{ t('footer.brand') }}</span>
             </div>
-            <p class="footer-tagline">Desarrollador Web & Técnico en Programación</p>
-            <p class="footer-location">📍 San Rafael, Mendoza, Argentina</p>
+            <p class="footer-tagline">{{ t('footer.tagline') }}</p>
+            <p class="footer-location">{{ t('footer.location') }}</p>
           </div>
 
           <div class="footer-links">
             <div class="links-column">
-              <h4>Navegación</h4>
+              <h4>{{ t('footer.navTitle') }}</h4>
               <ul>
-                <li><a href="#inicio" @click.prevent="scrollToTop">Inicio</a></li>
-                <li><a href="#educacion">Educación</a></li>
-                <!-- <li><a href="#experiencia">Experiencia</a></li> -->
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <!-- <li><a href="#intereses">Intereses</a></li> -->
+                <li><a href="#inicio" @click.prevent="scrollToTop">{{ t('nav.inicio') }}</a></li>
+                <li><a href="#educacion">{{ t('nav.educacion') }}</a></li>
+                <li><a href="#proyectos">{{ t('nav.proyectos') }}</a></li>
+                <li><a href="#habilidades">{{ t('nav.habilidades') }}</a></li>
+                <li><a href="#contacto">{{ t('nav.contacto') }}</a></li>
               </ul>
             </div>
             <div class="links-column">
-              <h4>Contacto</h4>
+              <h4>{{ t('footer.contactTitle') }}</h4>
               <ul>
-                <li><a href="mailto:quirozarielezequiel@gmail.com">Email</a></li>
-                <li><a href="https://wa.me/542604005223" target="_blank">WhatsApp</a></li>
-                <li><a href="https://www.linkedin.com/in/ezequielquiroz/" target="_blank">LinkedIn</a></li>
-                <li><a href="https://github.com/EzequielQ2004" target="_blank">GitHub</a></li>
-                <li><a href="https://ezequielquiroz-portafolio.netlify.app/" target="_blank">Portafolio</a></li>
+                <li><a href="mailto:quirozarielezequiel@gmail.com">{{ t('footer.email') }}</a></li>
+                <li><a href="https://wa.me/542604005223" target="_blank">{{ t('footer.whatsapp') }}</a></li>
+                <li><a href="https://www.linkedin.com/in/ezequielquiroz/" target="_blank">{{ t('footer.linkedin') }}</a></li>
+                <li><a href="https://github.com/EzequielQ2004" target="_blank">{{ t('footer.github') }}</a></li>
+                <li><a href="https://ezequielquiroz-portafolio.netlify.app/" target="_blank">{{ t('footer.portfolio') }}</a></li>
               </ul>
             </div>
           </div>
 
           <div class="footer-newsletter">
-            <h4>¿Interesado en colaborar?</h4>
-            <p>No dudes en contactarme para proyectos o oportunidades.</p>
+            <h4>{{ t('footer.ctaTitle') }}</h4>
+            <p>{{ t('footer.ctaText') }}</p>
             <a 
               href="mailto:quirozarielezequiel@gmail.com" 
               class="btn-cta-footer"
             >
-              Enviar Mensaje
+              {{ t('footer.ctaButton') }}
             </a>
           </div>
         </div>
 
         <div class="footer-bottom">
           <p class="copyright">
-            © 2024 Ezequiel Quiroz. Todos los derechos reservados.
+            {{ t('footer.copyright') }}
           </p>
           <div class="footer-social">
             <a 
@@ -290,17 +282,18 @@ onUnmounted(() => {
 
     <!-- Botón de volver arriba -->
     <button 
-      v-if="showScrollTop" 
+      v-show="showScrollTop" 
       @click="scrollToTop"
       class="scroll-top-btn"
-      aria-label="Volver arriba"
+      :class="{ 'show': showScrollTop }"
+      :aria-label="t('scrollTop')"
     >
       <span class="arrow-up">↑</span>
     </button>
     
     <!-- Progress bar -->
     <div class="progress-bar">
-      <div class="progress-fill"></div>
+      <div class="progress-fill" ref="progressRef"></div>
     </div>
     </div>
   </div>
@@ -377,9 +370,9 @@ main {
 }
 
 section {
-    padding: none;
+    padding: 0;
     border-bottom: none;
-    margin: none;
+    margin: 0;
 }
 
 .section-container {
